@@ -762,7 +762,7 @@ MonoBehaviour:
   btnRetry: {fileID: 7077737635661483906}
   btnAddPiece: {fileID: 4435619209392825981}
   gameOverTxt: {fileID: 385973408761472228}
-  bannerWin: {fileID: 8501730682296754325}
+  bannerWin: {fileID: 462591199939601194}
   homeBtn: {fileID: 484181227887445233}
   shopBtn: {fileID: 8554033964976523243}
   settingBtn: {fileID: 1489334139756476885}
@@ -1976,7 +1976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6520593702178742952
 RectTransform:
   m_ObjectHideFlags: 0

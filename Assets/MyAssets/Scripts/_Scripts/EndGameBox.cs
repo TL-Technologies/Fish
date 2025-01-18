@@ -49,9 +49,11 @@ public class EndGameBox : BaseBox
     
     [SerializeField] Canvas canvas;
     [SerializeField] Camera cameraUI;
+
     public override void Show()
     {
         base.Show();
+        Debug.LogError("Yeee--->" + FindObjectOfType<GameManager>().win);
         switch (FindObjectOfType<GameManager>().win)
         {
             case true:
@@ -64,10 +66,12 @@ public class EndGameBox : BaseBox
                 gameOverTxt.gameObject.SetActive(true);
                 break;
         }
+
         for (int i = 0; i < FindObjectsOfType<Canvas>().Length; i++)
         {
             FindObjectsOfType<Canvas>()[i].enabled = false;
         }
+
         canvas.enabled = true;
         canvas.worldCamera = cameraUI;
         cameraUI.transform.parent = null;
@@ -87,42 +91,10 @@ public class EndGameBox : BaseBox
         {
             s = Random.Range(5, 15);
         }
+
         highestRank.text = "HIGHEST RANK : " + s;
-        killAmount.text = "SCORE : " +FindObjectOfType<PlayerController>().fish.score.ToString();
-      //  var dataUnlock = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex);
+        killAmount.text = "SCORE : " + FindObjectOfType<PlayerController>().fish.score.ToString();
         int max = 0;
-
-
-        /*if (dataUnlock == null)
-        {
-            unlockUI.gameObject.SetActive(false);
-            btnRetry.gameObject.SetActive(true);
-        }
-        else
-        {
-            max = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex).unlockCondision;
-            if (dataUnlock.isFish)
-            {
-                var fish = GameController.instance.fishDatabase.GetFishOObjectData(dataUnlock.fishType);
-                iconItem.sprite = fish.icon;
-                piceAmount.text = "+ " + dataUnlock.
-                    fishPieceReward.ToString();
-                DataManager.currentPieceReward = dataUnlock.fishPieceReward;
-                slider.value = ((float)DataManager.unlockProgressAmount / (float)max);
-                sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-            }
-            else
-            {
-                var weapon = GameController.instance.weaponDatabase.GetWeaponObjectData(dataUnlock.weaponType);
-                iconItem.sprite = weapon.icon;
-                piceAmount.text = "+ " + dataUnlock.fishPieceReward.ToString();
-                DataManager.currentPieceReward = dataUnlock.fishPieceReward;
-                slider.value = ((float)DataManager.unlockProgressAmount / (float)max);
-                sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-            }
-        }*/
-
-        
         var player = FindObjectOfType<PlayerController>();
         player.gameObject.SetActive(false);
         var playerClone = Instantiate(player);
@@ -130,197 +102,14 @@ public class EndGameBox : BaseBox
         playerClone.GetComponent<Fish>().enabled = false;
         playerClone.transform.position = Vector3.zero;
         playerClone.transform.eulerAngles = new Vector3(0, 0, 0);
-        playerClone.body.localEulerAngles = new Vector3(0, 0, 0);
-        Debug.Log("Rot 1" +playerClone.transform.rotation);
-        Debug.Log("Rot 2" +playerClone.transform.localRotation);
-        playerClone.transform.localScale = new Vector3(3f, 3f, 3f);  
+        playerClone.body.localEulerAngles = new Vector3(0, 0, 0); 
+        playerClone.transform.localScale = new Vector3(3f, 3f, 3f);
         playerClone.transform.GetChild(1).gameObject.SetActive(false);
-        playerClone.transform.GetComponentInChildren<Mouth>().enabled = false;
+        playerClone.transform.GetComponentInChildren<Mouth>(transform).gameObject.SetActive(false);
         playerClone.gameObject.SetActive(true);
         Debug.Log("Added");
-        //playerClone.gameObject.layer = LayerMask.NameToLayer("UI");
-        
-        //playerClone.fish..gameObject.SetActive(true);
-        /*if (player)
-        {
-            var playerClone = Instantiate(player, fishPlayerView);
-            playerClone.enabled = false;
-            playerClone.transform.localPosition = Vector3.zero;
-            playerClone.Skin.gameObject.SetActive(true);
-
-            Transform[] chids = playerClone.GetComponentsInChildren<Transform>(true);
-            for (int i = 0; i < chids.Length; i++)
-            {
-                chids[i].gameObject.layer = LayerMask.NameToLayer("UI");
-            }
-            playerClone.Skin.transform.parent.rotation = Quaternion.LookRotation(Vector3.right * -90);
-            var imageBorn = playerClone.GetComponentInChildren<ImageBornFish>();
-            if (imageBorn != null) Destroy(imageBorn.gameObject);
-
-            fishHeads = playerClone.GetComponentsInChildren<FishHead>(true);
-
-            slider.value = ((float)DataManager.unlockProgressAmount / (float)max);
-            sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-            killAmount.text = $"Total Kills: {playerClone.killAmount}";
-            highestRank.text = $"HIGHEST RANK: {UIManager.Instance.playerHighestRank}";
-
-            Observable.Timer(TimeSpan.FromSeconds(1f), Scheduler.MainThreadIgnoreTimeScale).Subscribe(_ =>
-            {
-                slider.value = ((float)DataManager.unlockProgressAmount / (float)max);
-                sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-                killAmount.text = $"Total Kills: {playerClone.killAmount}";
-                if(playerClone.killAmount <= 0) btnRetry.gameObject.SetActive(true);
-                for (int i = 0; i < fishHeads.Length; i++)
-                {
-                    int index = i;
-                    fishHeads[i].gameObject.SetActive(true);
-                    fishHeads[i].transform.parent = null;
-                    fishHeads[i].MoveToPoint(fishHeadMovePoint.position, () =>
-                    {
-                        if (index >= fishHeads.Length - 1) btnRetry.gameObject.SetActive(true);
-                        DataManager.unlockProgressAmount++;
-
-                        slider.value = ((float)DataManager.unlockProgressAmount / max);
-                        sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-
-                        if (DataManager.unlockProgressAmount >= max)
-                        {
-                            DataManager.CountUnlockBoxShow++;
-                            Debug.Log(DataManager.CountUnlockBoxShow);
-                            var box = UnlockBox.Setup();
-                            box.Show();
-                            // if (dataUnlock.isFish)
-                            // {
-                            //     GameController.instance.unlockData.fishCanUnlocked.Add(GameController.instance.fishDatabase.GetFishOObjectData(dataUnlock.fishType));
-                            //     DataManager.StringItemUnLock();
-                            // }
-                            // else
-                            // {
-                            //     GameController.instance.unlockData.weaponCanUnlocked.Add(GameController.instance.weaponDatabase.GetWeaponObjectData(dataUnlock.weaponType));
-                            //     DataManager.StringItemUnLock();
-                            // }
-                            DataManager.unlockIndex++;
-                            Debug.Log(DataManager.unlockIndex);
-                            DataManager.unlockProgressAmount = 0;
-                            max = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex).unlockCondision;
-                            var dataNewUnlock = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex);
-                            if (dataNewUnlock == null)
-                            {
-                                unlockUI.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                if (dataNewUnlock.isFish)
-                                {
-
-                                    var fish = GameController.instance.fishDatabase.GetFishOObjectData(dataNewUnlock.fishType);
-                                    iconItem.sprite = fish.icon;
-                                    piceAmount.text = "+ " + dataNewUnlock.fishPieceReward.ToString();
-
-                                    slider.value = ((float)DataManager.unlockProgressAmount / max);
-                                    sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-
-                                    DataManager.currentPieceReward = dataNewUnlock.fishPieceReward;
-                                }
-                                else
-                                {
-
-                                    var weapon = GameController.instance.weaponDatabase.GetWeaponObjectData(dataNewUnlock.weaponType);
-                                    iconItem.sprite = weapon.icon;
-                                    piceAmount.text = "+ " + dataNewUnlock.fishPieceReward.ToString();
-
-                                    slider.value = ((float)DataManager.unlockProgressAmount / max);
-                                    sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-
-                                    DataManager.currentPieceReward = dataNewUnlock.fishPieceReward;
-                                }
-                            }
-                        }
-                    }, (i + 1) * 0.25f);
-                }
-            }).AddTo(this);
-        }*/
     }
-    /*public void AddPieceWithAds()
-    {
-        if (DataManager.unlockIndex > GameController.instance.unlockDatabase.unlockDataObjects.Count)
-        {
-            unlockUI.gameObject.SetActive(false);
-            btnAddPiece.gameObject.SetActive(false);
-            return;
-        }
-        Debug.Log("Show Video Reward");
-        Action actionSuccess = () =>
-        {
-            DataManager.LastTimeShowAdsAddPiece = DateTime.Now;
-            if (RemoteConfigControl.instance.AddPieceIsOn < 1 || DataManager.LastTimeShowAdsAddPiece.AddSeconds(RemoteConfigControl.instance.AddPiece_Cooldown) > DateTime.Now)
-            {
-                btnAddPiece.gameObject.SetActive(false);
-            }
-            
-            DataManager.unlockProgressAmount += DataManager.currentPieceReward;
-            var dataUnlock = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex);
-            int max = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex).unlockCondision;
-            slider.value = ((float)DataManager.unlockProgressAmount / max);
-            sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
 
-            if (DataManager.unlockProgressAmount >= max)
-            {
-                int residualValue = DataManager.unlockProgressAmount - max;
-                Debug.Log(residualValue);
-                if (dataUnlock.isFish)
-                {
-                    GameController.instance.unlockData.fishCanUnlocked.Add(GameController.instance.fishDatabase.GetFishOObjectData(dataUnlock.fishType));
-                    DataManager.StringItemUnLock();
-                }
-                else
-                {
-                    GameController.instance.unlockData.weaponCanUnlocked.Add(GameController.instance.weaponDatabase.GetWeaponObjectData(dataUnlock.weaponType));
-                    DataManager.StringItemUnLock();
-                }
-                DataManager.unlockIndex++;
-                DataManager.unlockProgressAmount = residualValue;
-                max = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex).unlockCondision;
-                var dataNewUnlock = GameController.instance.unlockDatabase.GetUnlockDataObject(DataManager.unlockIndex);
-                
-                if (dataNewUnlock == null)
-                {
-                    unlockUI.gameObject.SetActive(false);
-                    btnAddPiece.gameObject.SetActive(false);
-                }
-                else
-                {
-                    if (dataNewUnlock.isFish)
-                    {
-
-                        var fish = GameController.instance.fishDatabase.GetFishOObjectData(dataNewUnlock.fishType);
-                        iconItem.sprite = fish.icon;
-                        piceAmount.text = "+ " + dataNewUnlock.fishPieceReward.ToString();
-
-                        slider.value = ((float)DataManager.unlockProgressAmount / max);
-                        sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-
-                        DataManager.currentPieceReward = dataNewUnlock.fishPieceReward;
-                    }
-                    else
-                    {
-
-                        var weapon = GameController.instance.weaponDatabase.GetWeaponObjectData(dataNewUnlock.weaponType);
-                        iconItem.sprite = weapon.icon;
-                        piceAmount.text = "+ " + dataNewUnlock.fishPieceReward.ToString();
-
-                        slider.value = ((float)DataManager.unlockProgressAmount / max);
-                        sliderText.text = $"{DataManager.unlockProgressAmount} / {max}";
-
-                        DataManager.currentPieceReward = dataNewUnlock.fishPieceReward;
-                    }
-                }
-            }
-        };
-
-        /*if (RemoteConfigControl.instance.AddPieceIsOn >= 1 && DataManager.LastTimeShowAdsAddPiece.AddSeconds(RemoteConfigControl.instance.AddPiece_Cooldown) < DateTime.Now)
-            AdsManager.ins.ShowRewardBasedVideo();#1#
-    }*/
     public override void Hide()
     {
         base.Hide();

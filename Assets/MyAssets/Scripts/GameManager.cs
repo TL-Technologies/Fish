@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Text countdownText;
     private float currentTime;
     internal bool isTimerRunning = true;
-    internal bool win;
+    [SerializeField]internal bool win;
 
     // Sound Btn
     bool soundToggle = true;
@@ -39,6 +41,46 @@ public class GameManager : MonoBehaviour
 
     [Space] public GameObject gameEnd;
 
+    [Space] public Button useSword;
+     public PlayerController playerController;
+     
+     [Space]
+     public Text timerText; // Assign a UI Text component in the Inspector
+     private int countdownValue = 10;
+
+
+     public bool isplayerDead;
+     
+     IEnumerator CountdownCoroutine()
+     {
+         while (countdownValue >= 0)
+         {
+             timerText.text = countdownValue.ToString();
+             yield return new WaitForSeconds(1);
+             
+             countdownValue--;
+         }
+
+        timerText.gameObject.SetActive(false);
+        playerController.fish.mouth.SetActive(true);
+        playerController.fish.sword.SetActive(false);
+        playerController.fish.speed = 8;
+     }
+
+
+
+     void OnClickUseSword()
+     {
+         playerController.fish.mouth.SetActive(false);
+         playerController.fish.sword.SetActive(true);
+         playerController.fish.speed *= 1.5f;
+         useSword.interactable = false;
+         timerText.gameObject.SetActive(true);
+         StartCoroutine(CountdownCoroutine());
+     }
+
+     public bool isShowd = false;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -53,6 +95,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         pauseBtn.AddCustomListner(ShowPause);
+        useSword.AddCustomListner(OnClickUseSword);
     }
 
 
@@ -85,18 +128,21 @@ public class GameManager : MonoBehaviour
         {
             // Countdown is finished
             currentTime = 0;
-
-            if(!win)
+            if (!win)
+            {
                 Win();
+            }
+               
         }
     }
 
     public void RetryGame()
     {
+        Debug.Log("Retry");
         isTimerRunning = false;
         //Invoke("InvokeRetryGame", 1);
-        var ee = EndGameBox.Setup();
-        ee.Show();
+        win = false;
+        showPOP();
     }
 
     private void InvokeRetryGame()
@@ -125,12 +171,33 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        isTimerRunning = false;
-        Destroy(FindObjectOfType<PlayerController>().GetComponent<CircleCollider2D>());
         win = true;
+        isTimerRunning = false;
+        Debug.Log("Win");
+       
+        Destroy(FindObjectOfType<PlayerController>().GetComponent<CircleCollider2D>());
        // Invoke("InvokeWinGame", 1);
-       var ee = EndGameBox.Setup();
-       ee.Show();
+         showPOP();
+    }
+
+    void showPOP()
+    {
+        if (!isShowd)
+        {
+            isShowd = true;
+            var ee = EndGameBox.Setup();
+            ee.Show();
+            FindObjectOfType<AIPlayerTargetManager>().gameObject.SetActive(false);
+            foreach (var s in FindObjectOfType<AIPlayerTargetManager>(true).allFishes)
+            {
+                if (s != null)
+                {
+                    s.GetComponent<AiPlayerController>().gameObject.SetActive(false);
+                }
+              
+            }
+            
+        }
     }
 
     private void InvokeWinGame()
@@ -225,6 +292,5 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
 
 }

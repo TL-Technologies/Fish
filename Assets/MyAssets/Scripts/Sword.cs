@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Mouth : MonoBehaviour
+public class Sword : MonoBehaviour
 {
     private Fish fish;
 
@@ -13,7 +15,7 @@ public class Mouth : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (fish.GetScore() >= collision.GetComponent<Fish>().GetScore())
+            if (fish.GetScore() >= collision.GetComponent<Fish>().GetScore() || fish.GetScore() <= collision.GetComponent<Fish>().GetScore())
             {
                 Destroy(collision.GetComponentInChildren<Mouth>());
 

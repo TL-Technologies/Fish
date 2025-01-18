@@ -30,28 +30,32 @@ public class AIPlayerTargetManager : MonoBehaviour
     }
     public void SpawnAiPlayer()
     {
-        GameObject randomAiPlayer = aiPlayerPrefabs[Random.Range(0, aiPlayerPrefabs.Length)];
-        int randomVal = Random.Range(0, spawnTargets.Count);
-        GameObject obj = Instantiate(randomAiPlayer, spawnTargets[randomVal].localPosition, Quaternion.identity);
-        obj.name = obj.name + j++;
-        allFishes.Add(obj.GetComponent<Fish>());
-        foreach (Fish fish in allFishes)
-        {
-            if (fish.ismainPlayer)
-            {
-                Debug.Log("Main");
-                fish.fishName = FindObjectOfType<PlayerController>().fish.fishName;
-            }
-            else
-            {
-                fish.fishName = "Player"+ Random.Range(0, 125);
-            } 
-        }
         
-        spawnTargets.RemoveAt(randomVal);
+            GameObject randomAiPlayer = aiPlayerPrefabs[Random.Range(0, aiPlayerPrefabs.Length)];
+            int randomVal = Random.Range(0, spawnTargets.Count);
+            GameObject obj = Instantiate(randomAiPlayer, spawnTargets[randomVal].localPosition, Quaternion.identity);
+            obj.name = obj.name + j++;
+            allFishes.Add(obj.GetComponent<Fish>());
+            foreach (Fish fish in allFishes)
+            {
+                if (fish.ismainPlayer)
+                {
+                    Debug.Log("Main");
+                    fish.fishName = FindObjectOfType<PlayerController>().fish.fishName;
+                }
+                else
+                {
+                    fish.fishName = "Player"+ Random.Range(0, 125);
+                } 
+            }
+        
+            spawnTargets.RemoveAt(randomVal);
 
-        if(spawnTargets.Count == 0)
-            ResetSpawnTargets();
+            if(spawnTargets.Count == 0)
+                ResetSpawnTargets();
+        
+       
+       
     }
 
     private void ResetSpawnTargets()

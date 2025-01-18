@@ -17,6 +17,11 @@ public class Fish : MonoBehaviour
     private FishSkin skins;
     private GameManager gameManager;
 
+    
+    [Space]
+    public GameObject sword;
+    public GameObject mouth;
+
     [SerializeField]internal int currentIndex;
     
     public Crown crown;
@@ -61,6 +66,7 @@ public class Fish : MonoBehaviour
         skins = FindObjectOfType<FishSkin>();
 
         SetRandomSkin();
+        SetSword();
     }
 
     private void SetRandomSkin()
@@ -94,13 +100,15 @@ public class Fish : MonoBehaviour
     {
         Instantiate(bonePrefab, transform.position, Quaternion.identity);
         FindObjectOfType<AIPlayerTargetManager>().allFishes.Remove(this);
-        FindObjectOfType<AIPlayerTargetManager>().SpawnAiPlayer();
-        if (GetComponent<PlayerController>())
+        if (FindObjectOfType<AIPlayerTargetManager>().mainFish != null)
         {
-            //gameManager.gamePanel.SetActive(false);;
-
+            FindObjectOfType<AIPlayerTargetManager>().SpawnAiPlayer();
+        }
+        if (GetComponent<PlayerController>() != null)
+        {
+            Debug.LogError("Calling this");
             AudioManager.Instance.Play("Die");
-            gameManager.RetryGame();
+            FindObjectOfType<GameManager>().RetryGame();
         }
 
         Destroy(gameObject);
@@ -205,4 +213,16 @@ public class Fish : MonoBehaviour
     {
         scoreText.text = score.ToString();
     }
+
+
+    internal void SetSword()
+    {
+        if (ismainPlayer)
+        {
+            int index = PlayerPrefsData.GetCurrentWeaponIndex();
+            sword.GetComponent<SpriteRenderer>().sprite = skins.katana[index];
+        }
+    }
+
+    
 }
