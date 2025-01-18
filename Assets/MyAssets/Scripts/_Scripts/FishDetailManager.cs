@@ -33,7 +33,7 @@ public class FishDetailManager : MonoBehaviour
 
     public void SetIDAndFish()
     {
-        if ((PlayerPrefsData.IsProductPurchased(myID) || isFree)&& UIManager.instance.isNull())
+        if ((PlayerPrefsData.IsProductPurchased(myID) || isFree) && UIManager.instance.isNull())
         { 
             selectBorder.GetComponent<Image>().enabled = true;
             selectButton.SetActive(false);
@@ -47,6 +47,7 @@ public class FishDetailManager : MonoBehaviour
         }
         else if ((PlayerPrefsData.IsProductPurchased(myID) || isFree)&& !UIManager.instance.isNull())
         {
+            Debug.LogError("f");
             UIManager.instance.border.enabled = false;
             UIManager.instance.selected.SetActive(false);
             UIManager.instance.select.SetActive(true);

@@ -13,6 +13,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private static IExtensionProvider storeExtensionProvider;
     public string[] productIds;
     public Button[] purchaseBtns;
+    public Button[] weaponBtns;
      private void Start()
      {
          StartCoroutine(cc());
@@ -20,23 +21,38 @@ public class IAPManager : MonoBehaviour, IStoreListener
         AssignButtonListeners();
         OnPurchaseRefreshUi();
     }
-    private void AssignButtonListeners()
-    {
-        for (int i = 0; i < purchaseBtns.Length; i++)
-        {
-            int index = i;
-            purchaseBtns[index].onClick.AddListener(() =>
-            {
-                if (!PlayerPrefsData.IsProductPurchased(productIds[index]))
-                {
-                    BuyProduct(productIds[index]);
-                }
-               
-            });
-        }
-    }
 
-    IEnumerator cc()
+     private void AssignButtonListeners()
+     {
+         for (int i = 0; i < purchaseBtns.Length; i++)
+         {
+             int index = i;
+             purchaseBtns[index].onClick.AddListener(() =>
+             {
+                 if (!PlayerPrefsData.IsProductPurchased(productIds[index]))
+                 {
+                     BuyProduct(productIds[index]);
+                 }
+
+             });
+         }
+
+         for (int i = 0; i < weaponBtns.Length; i++)
+         {
+             int index = i;
+             weaponBtns[index].onClick.AddListener(() =>
+             {
+                 // Adjust the productIds index if it starts from 6
+                 int productIdIndex = index + 7; // Assuming productIds starts from index 6
+                 if (!PlayerPrefsData.IsWeaponPurchased(productIds[productIdIndex]))
+                 {
+                     BuyProduct(productIds[productIdIndex]);
+                 }
+             });
+         }
+     }  
+
+     IEnumerator cc()
     {
         yield return new WaitForSeconds(3f);
         if (storeController == null)
@@ -114,7 +130,15 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private void OnPurchaseSuccess(string productId)
     {
         Debug.Log("Purchase Success: " + productId);
-        PlayerPrefsData.SaveProductId(productId);
+       // PlayerPrefsData.SaveProductId(productId);
+        if (productId == "com.brawl.fish.laser" ||productId == "com.brawl.fish.legendkatana" ||productId == "com.brawl.fish.lightining" ||productId == "com.brawl.fish.poisedon" ||productId == "com.brawl.fish.sword" ||productId == "com.brawl.fish.umbrella")
+        {
+            PlayerPrefsData.SaveWeaponId(productId);
+        }
+        else
+        {
+            PlayerPrefsData.SaveProductId(productId);
+        }
         OnPurchaseRefreshUi();
     }
 
@@ -132,7 +156,20 @@ public class IAPManager : MonoBehaviour, IStoreListener
                  s.GetComponent<FishDetailManager>().selectButton.SetActive(true);
                 }  
             }
-            
+        }
+
+        foreach (var s in weaponBtns)
+        {
+            foreach (var p in PlayerPrefsData.GetAllPurchasedWeaponIds())
+            {
+                Debug.Log(p);
+                if (s.GetComponent<WeaponDetailManager>().myID == p )
+                {
+                    s.GetComponent<WeaponDetailManager>().selectedButton.SetActive(false);
+                    s.GetComponent<WeaponDetailManager>().selectedButton.GetComponent<TMP_Text>().text = "Selected";
+                    s.GetComponent<WeaponDetailManager>().selectButton.SetActive(true);
+                }  
+            }
         }
     }
 }

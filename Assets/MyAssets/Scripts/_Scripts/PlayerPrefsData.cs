@@ -73,9 +73,11 @@ public static class PlayerPrefsData
     }
     
     #endregion
+
+
+    #region Fish skin
     
     private const string ProductIdsKey = "ProductIds";
-
     public static void SaveProductId(string productId)
     {
         ProductData productData = LoadAllProductIds();
@@ -119,5 +121,55 @@ public static class PlayerPrefsData
     public static int GetCurrentIndex()
     {
         return PlayerPrefs.GetInt("currentIndex");
+    }
+    
+    #endregion
+    
+    private const string WeaponIdsKey = "weaponIds";
+    
+    
+    public static void SaveWeaponId(string productId)
+    {
+        ProductData productData = LoadAllWeaponIds();
+        if (!productData.productIds.Contains(productId))
+        {
+            productData.productIds.Add(productId);
+        }
+        string jsonData = JsonUtility.ToJson(productData);
+        PlayerPrefs.SetString(WeaponIdsKey, jsonData);
+        PlayerPrefs.Save();
+    }
+
+    public static ProductData LoadAllWeaponIds()
+    {
+        if (PlayerPrefs.HasKey(WeaponIdsKey))
+        {
+            string jsonData = PlayerPrefs.GetString(WeaponIdsKey);
+            return JsonUtility.FromJson<ProductData>(jsonData);
+        }
+        return new ProductData();
+    }
+
+    public static bool IsWeaponPurchased(string productId)
+    {
+        ProductData productData = LoadAllWeaponIds();
+        return productData.productIds.Contains(productId);
+    }
+    
+    public static List<string> GetAllPurchasedWeaponIds()
+    {
+        ProductData productData = LoadAllWeaponIds();
+        return productData.productIds;
+    }
+
+
+    public static void SetCurrentWeaponIndex( int index)
+    {
+        PlayerPrefs.SetInt("currentWeaponIndex", index);
+    }
+
+    public static int GetCurrentWeaponIndex()
+    {
+        return PlayerPrefs.GetInt("currentWeaponIndex");
     }
 }
