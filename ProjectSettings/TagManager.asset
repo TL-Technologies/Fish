@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - FishHead
+  - FishBody
+  - FishSpear
+  - PickableObj
+  - Bot
+  - BorderLine
+  - Collectable
+  - Fish
+  - Bullet
+  - Metaball_liquid
+  - Available
+  - NotAvailable
+  - EnemyDetector
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Environment
+  - UI_Tutorial
+  - FishName
+  - MapUI
+  - MapUITutorial
+  - EnvironmentItem
+  - Background
+  - Player
+  - Data
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Environment
+    uniqueID: 150121615
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: FishName
+    uniqueID: 2265557829
+    locked: 0
+  - name: UI_Tutorial
+    uniqueID: 570328029
+    locked: 0
+  - name: UI
+    uniqueID: 965498033
+    locked: 0
+  - name: MapUI
+    uniqueID: 3221784355
+    locked: 0
+  - name: MapUITutorial
+    uniqueID: 445194263
+    locked: 0
