@@ -131,7 +131,7 @@ public class UIManager : MonoBehaviour
 
     void FishAtStart()
     {
-        int fishIndex = PlayerPrefsData.GetCurrentIndex() - 1;
+        int fishIndex = PlayerPrefsData.GetCurrentIndex();
         if (fishIndex < 0) fishIndex = 0; // Ensure index is not negative
 
         fishList[fishIndex].selectBorder.GetComponent<Image>().enabled = true;
@@ -141,13 +141,22 @@ public class UIManager : MonoBehaviour
         border = fishList[fishIndex].selectBorder.GetComponent<Image>();
         selected = fishList[fishIndex].selectedButton;
         select = fishList[fishIndex].selectButton;
+        if (PlayerPrefsData.GetCurrentIndex() == 0)
+        {
+            PlayerPrefsData.SetCurrentIndex(0);
+            
+        }
+        else
+        {
+            PlayerPrefsData.SetCurrentIndex(fishIndex);
+        }
     }
 
     void WeaponAtStart()
     {
-        int weaponIndex = PlayerPrefsData.GetCurrentWeaponIndex()-1;
+        int weaponIndex = PlayerPrefsData.GetCurrentWeaponIndex();
         if (weaponIndex < 0) weaponIndex = 0; // Ensure index is not negative
-
+        Debug.LogError(weaponIndex);
         weaponList[weaponIndex].selectBorder.GetComponent<Image>().enabled = true;
         weaponList[weaponIndex].selectedButton.SetActive(true);
         weaponList[weaponIndex].selectButton.SetActive(false);
@@ -155,6 +164,14 @@ public class UIManager : MonoBehaviour
         borderWeapon = weaponList[weaponIndex].selectBorder.GetComponent<Image>();
         selectedWeapon = weaponList[weaponIndex].selectedButton;
         selectWeapon = weaponList[weaponIndex].selectButton;
+        if (PlayerPrefsData.GetCurrentWeaponIndex() == 0)
+        {
+         PlayerPrefsData.SetCurrentWeaponIndex(0);
+        }
+        else
+        {
+            PlayerPrefsData.SetCurrentWeaponIndex(weaponIndex);
+        }
     }
 
     #endregion

@@ -10437,7 +10437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Elmo
   myID: com.brawl.fish.elmo
-  id: 8
+  id: 7
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108862889839}
@@ -10541,7 +10541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Datnioides
   myID: 
-  id: 1
+  id: 0
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942108864025966}
@@ -18305,7 +18305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Demon
   myID: com.brawl.fish.demon
-  id: 7
+  id: 6
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108654690406}
@@ -21304,7 +21304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Flyingfish
   myID: com.brawl.fishflyingfish
-  id: 9
+  id: 8
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108561237969}
@@ -23702,7 +23702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Mahi
   myID: com.brawl.fish.mahi
-  id: 11
+  id: 10
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108839691755}
@@ -33440,7 +33440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Cobia
   myID: 
-  id: 2
+  id: 1
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942108322951126}
@@ -53487,7 +53487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Coffinfish
   myID: com.brawl.fish.coffinfish
-  id: 6
+  id: 5
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108787995900}
@@ -53507,7 +53507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Lonfish
   myID: com.brawl.fishlonfish
-  id: 10
+  id: 9
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942109176037403}
@@ -66315,7 +66315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Anglefish
   myID: com.brawl.fish.anglefish
-  id: 5
+  id: 4
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942107629167386}
@@ -71528,7 +71528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Butterfish
   myID: 
-  id: 3
+  id: 2
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942108721932004}
@@ -77137,7 +77137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Achilles
   myID: 
-  id: 4
+  id: 3
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942107108810127}
@@ -82704,7 +82704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Laser
   myID: com.brawl.fish.laser
-  id: 5
+  id: 4
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108506574713}
@@ -84435,7 +84435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Poisedon
   myID: com.brawl.fish.poisedon
-  id: 8
+  id: 7
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942108640744133}
@@ -87802,7 +87802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Fire sword
   myID: 
-  id: 1
+  id: 0
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942109083784835}
@@ -88491,7 +88491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Legend Katana
   myID: com.brawl.fish.legendkatana
-  id: 6
+  id: 5
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942109158523875}
@@ -93848,7 +93848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sword
   myID: com.brawl.fish.sword
-  id: 9
+  id: 8
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942107549568951}
@@ -94935,7 +94935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Green Saber
   myID: 
-  id: 2
+  id: 1
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942107112714931}
@@ -96543,7 +96543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Horn
   myID: 
-  id: 3
+  id: 2
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942107219089060}
@@ -97616,7 +97616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Katana
   myID: 
-  id: 4
+  id: 3
   text: {fileID: 5616521703422137427}
   isFree: 1
   selectButton: {fileID: 3081942107296507441}
@@ -99229,7 +99229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Umbrella
   myID: com.brawl.fish.umbrella
-  id: 10
+  id: 9
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942107970453261}
@@ -102340,7 +102340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Lightining
   myID: com.brawl.fish.lightining
-  id: 7
+  id: 6
   text: {fileID: 5616521703422137427}
   isFree: 0
   selectButton: {fileID: 3081942107822037524}
@@ -103482,7 +103482,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 380}
+  m_CellSize: {x: 290, y: 370}
   m_Spacing: {x: 10, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
