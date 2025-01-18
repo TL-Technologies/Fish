@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -12,11 +14,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public string[] productIds;
     public Button[] purchaseBtns;
      private void Start()
-    {
-        if (storeController == null)
-        {
-            InitializePurchasing();
-        }
+     {
+         StartCoroutine(cc());
+         
         AssignButtonListeners();
         OnPurchaseRefreshUi();
     }
@@ -35,7 +35,15 @@ public class IAPManager : MonoBehaviour, IStoreListener
             });
         }
     }
-    [Obsolete("Obsolete")]
+
+    IEnumerator cc()
+    {
+        yield return new WaitForSeconds(3f);
+        if (storeController == null)
+        {
+            InitializePurchasing();
+        }
+    }
     public void InitializePurchasing()
     {
         if (IsInitialized())
@@ -67,8 +75,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.LogError($"Purchasing : {productId}");
             Product product = storeController.products.WithID(productId);
 
-            if (product != null && product.availableToPurchase)
+            if (product != null)
             {
+                Debug.Log($"Purchasing 2: {product.definition.id}");
                 storeController.InitiatePurchase(product);
             }
         }

@@ -7792,8 +7792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a1a17eb9a6a7a4e91475bd59e1644e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intertestialId: ca-app-pub-3940256099942544/1033173712
-  bannerId: ca-app-pub-3940256099942544/6300978111
 --- !u!224 &176275739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35414,6 +35412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 915972654}
   - component: {fileID: 915972653}
+  - component: {fileID: 915972655}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -35448,6 +35447,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &915972655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915972652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e07a348a85d75469be0cd7914e92c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productIds:
+  - com.brawl.fish.anglefish
+  - com.brawl.fish.coffinfish
+  - com.brawl.fish.demon
+  - com.brawl.fish.elmo
+  - com.brawl.fishflyingfish
+  - com.brawl.fishlonfish
+  - com.brawl.fish.mahi
+  purchaseBtns:
+  - {fileID: 1837837796}
+  - {fileID: 1326122565}
+  - {fileID: 539500120}
+  - {fileID: 361840993}
+  - {fileID: 731519463}
+  - {fileID: 1339632731}
+  - {fileID: 747469038}
 --- !u!1 &932986832
 GameObject:
   m_ObjectHideFlags: 0
@@ -45117,7 +45144,6 @@ GameObject:
   - component: {fileID: 1092457301}
   - component: {fileID: 1092457302}
   - component: {fileID: 1092457304}
-  - component: {fileID: 1092457305}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45190,34 +45216,6 @@ MonoBehaviour:
   - {fileID: 731519466}
   - {fileID: 1339632734}
   - {fileID: 747469041}
---- !u!114 &1092457305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092457300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8e07a348a85d75469be0cd7914e92c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productIds:
-  - com.brawl.fish.anglefish
-  - com.brawl.fish.coffinfish
-  - com.brawl.fish.demon
-  - com.brawl.fish.elmo
-  - com.brawl.fishflyingfish
-  - com.brawl.fishlonfish
-  - com.brawl.fish.mahi
-  purchaseBtns:
-  - {fileID: 1837837796}
-  - {fileID: 1326122565}
-  - {fileID: 539500120}
-  - {fileID: 361840993}
-  - {fileID: 731519463}
-  - {fileID: 1339632731}
-  - {fileID: 747469038}
 --- !u!1 &1095509846
 GameObject:
   m_ObjectHideFlags: 0
