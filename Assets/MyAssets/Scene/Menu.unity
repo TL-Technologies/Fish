@@ -43282,6 +43282,7 @@ MonoBehaviour:
   fishText: {fileID: 5597557687643593562}
   objWeapon: {fileID: 6761137278575066154}
   weaponText: {fileID: 8500418022067475482}
+  name: {fileID: 5616521703422137427}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   disabledColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
   fishSkin: {fileID: 1092457305}
@@ -53915,7 +53916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1471965037
 AudioSource:
   m_ObjectHideFlags: 0
@@ -69261,7 +69262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1922592367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -77312,10 +77313,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4503564299463538178, guid: 9542fe577ea50bc4e90ffc95f00b4700, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9542fe577ea50bc4e90ffc95f00b4700, type: 3}
 --- !u!224 &2076402601 stripped
 RectTransform:
@@ -77359,7 +77357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2088175498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -77400,7 +77398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a1717362d29e9cc459fdbfed6d447d2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a271874a0925af44a8bb2daf89e5e11a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -106774,7 +106772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -84}
+  m_AnchoredPosition: {x: 0, y: -98}
   m_SizeDelta: {x: -586.515, y: 121.389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5616521703422137427
@@ -106797,7 +106795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e68380adf129487448e343b90404d0fa, type: 2}
   m_sharedMaterial: {fileID: 7374927986402738804, guid: e68380adf129487448e343b90404d0fa, type: 2}

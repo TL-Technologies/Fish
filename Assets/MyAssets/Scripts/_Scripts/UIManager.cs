@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     [Space] public TMP_Text fishText;
     [Space] public GameObject objWeapon;
     [Space] public TMP_Text weaponText;
+    [Space] public TMP_Text name;
     public Color normalColor;
     public Color disabledColor;
 
@@ -53,6 +54,8 @@ public class UIManager : MonoBehaviour
     public SpriteRenderer lvl_1_tail;  
     public SpriteRenderer lvl_1_oan;   
     public SpriteRenderer lvl_1_openMouth;
+    
+   
 
     public bool isNull()
     {
@@ -193,6 +196,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenFish()
     {
+        name.text = "";
         objShop.SetActive(true);
         fishText.color = normalColor;
         weaponText.color = disabledColor;
@@ -201,6 +205,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenSword()
     {
+        name.text = "";
         objShop.SetActive(false);
         fishText.color = disabledColor;
         weaponText.color = normalColor;
