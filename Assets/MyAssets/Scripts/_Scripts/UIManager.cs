@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     [Space] public TMP_Text weaponText;
     public Color normalColor;
     public Color disabledColor;
+   
 
 
     public bool isNull()
@@ -80,10 +81,14 @@ public class UIManager : MonoBehaviour
         SetNameAtStart();
         FishAtStart();
         WeaponAtStart();
-        doneButton.AddCustomListner(OnClickDone);
+        doneButton.AddCustomListner(()=>
+        {
+            OnClickDone();
+        });
         settingButton.AddCustomListner(ShowSetting);
         ShopBtn.AddCustomListner(Openshop);
         shopClose.AddCustomListner(CloseShop);
+        usernameInput.onEndEdit.AddListener(OnClickDone);
     }
 
     private void Openshop()
@@ -101,7 +106,7 @@ public class UIManager : MonoBehaviour
     
     #region Private Methods
     
-    private void OnClickDone()
+    private void OnClickDone(string input = null)
     {
         if (!string.IsNullOrEmpty(usernameInput.text) && usernameInput.text.Length >= 1 && usernameInput.text.Length <= 25)
         {
