@@ -107,9 +107,9 @@ public class UIManager : MonoBehaviour
 
     private void Openshop()
     {
+        shop.SetActive(true);
         fishRect.horizontalNormalizedPosition = 0f;
         weaponRect.horizontalNormalizedPosition = 0f;
-        shop.SetActive(true);
     }
 
     private void CloseShop()
