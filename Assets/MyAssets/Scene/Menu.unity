@@ -43290,6 +43290,8 @@ MonoBehaviour:
   lvl_1_tail: {fileID: 600080607}
   lvl_1_oan: {fileID: 721172416}
   lvl_1_openMouth: {fileID: 1877893955}
+  fishRect: {fileID: 5616521703179480117}
+  weaponRect: {fileID: 1198844778598107125}
 --- !u!114 &1092457305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111339,7 +111341,7 @@ Canvas:
   m_GameObject: {fileID: 1549198041834901762}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 5616521703318682151}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

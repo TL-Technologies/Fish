@@ -54,6 +54,10 @@ public class UIManager : MonoBehaviour
     public SpriteRenderer lvl_1_tail;  
     public SpriteRenderer lvl_1_oan;   
     public SpriteRenderer lvl_1_openMouth;
+
+
+    [Space] [SerializeField] internal ScrollRect fishRect;
+    [Space] [SerializeField] internal ScrollRect weaponRect;
     
    
 
@@ -103,6 +107,8 @@ public class UIManager : MonoBehaviour
 
     private void Openshop()
     {
+        fishRect.horizontalNormalizedPosition = 0f;
+        weaponRect.horizontalNormalizedPosition = 0f;
         shop.SetActive(true);
     }
 
@@ -201,6 +207,8 @@ public class UIManager : MonoBehaviour
         fishText.color = normalColor;
         weaponText.color = disabledColor;
         objWeapon.SetActive(false);
+        fishRect.horizontalNormalizedPosition = 0f;
+        weaponRect.horizontalNormalizedPosition = 0f;
     }
 
     public void OpenSword()
@@ -210,6 +218,8 @@ public class UIManager : MonoBehaviour
         fishText.color = disabledColor;
         weaponText.color = normalColor;
         objWeapon.SetActive(true);
+        fishRect.horizontalNormalizedPosition = 0f;
+        weaponRect.horizontalNormalizedPosition = 0f;
     }
 
 
