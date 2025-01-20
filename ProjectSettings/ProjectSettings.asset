@@ -293,7 +293,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners: []
   androidGamepadSupportLevel: 0
   chromeosInputEmulation: 0
@@ -870,7 +870,7 @@ PlayerSettings:
   apiCompatibilityLevel: 3
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 182026f3-383c-464d-9b15-876bb406e0e0
+  cloudProjectId: ab3c60b8-8019-4517-b39d-6c54d4a7f0a2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames:
   - Very Low
@@ -879,7 +879,7 @@ PlayerSettings:
   - High
   - Very High
   - Ultra
-  projectName: Fishdom Eat Fish
+  projectName: Brawl Fish
   organizationId: unity_a708518a93c7c791c4e9
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
