@@ -28,7 +28,7 @@ public class SettingBox : BaseBox
     {
         if (instance == null)
         {
-            instance = Instantiate(UIManager.instance.settingPrefab);
+            instance = Instantiate(UIManager.Instance.settingPrefab);
         }
         instance.SetActive(true);
 

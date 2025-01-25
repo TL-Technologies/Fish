@@ -33,32 +33,32 @@ public class FishDetailManager : MonoBehaviour
 
     public void SetIDAndFish()
     {
-        if ((PlayerPrefsData.IsProductPurchased(myID) || isFree) && UIManager.instance.isNull())
+        if ((PlayerPrefsData.IsProductPurchased(myID) || isFree) && UIManager.Instance.isNull())
         { 
             selectBorder.GetComponent<Image>().enabled = true;
             selectButton.SetActive(false);
             selectedButton.SetActive(true);
             
-            UIManager.instance.border = selectBorder.GetComponent<Image>();
-            UIManager.instance.selected = selectedButton;
-            UIManager.instance.select = selectButton;
+            UIManager.Instance.border = selectBorder.GetComponent<Image>();
+            UIManager.Instance.selected = selectedButton;
+            UIManager.Instance.select = selectButton;
             IAPDataHolder.Instance.index = id;
             PlayerPrefsData.SetCurrentIndex(id);
         }
-        else if ((PlayerPrefsData.IsProductPurchased(myID) || isFree)&& !UIManager.instance.isNull())
+        else if ((PlayerPrefsData.IsProductPurchased(myID) || isFree)&& !UIManager.Instance.isNull())
         {
             Debug.LogError("f");
-            UIManager.instance.border.enabled = false;
-            UIManager.instance.selected.SetActive(false);
-            UIManager.instance.select.SetActive(true);
+            UIManager.Instance.border.enabled = false;
+            UIManager.Instance.selected.SetActive(false);
+            UIManager.Instance.select.SetActive(true);
             
             selectBorder.GetComponent<Image>().enabled = true;
             selectButton.SetActive(false);
             selectedButton.SetActive(true);
             
-            UIManager.instance.border = selectBorder.GetComponent<Image>();
-            UIManager.instance.selected = selectedButton;
-            UIManager.instance.select = selectButton;
+            UIManager.Instance.border = selectBorder.GetComponent<Image>();
+            UIManager.Instance.selected = selectedButton;
+            UIManager.Instance.select = selectButton;
             IAPDataHolder.Instance.index = id;
             PlayerPrefsData.SetCurrentIndex(id);
         }

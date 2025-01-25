@@ -10582,7 +10582,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 915972653}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: MoreGames
         m_Mode: 1
@@ -33407,27 +33407,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915972654}
-  - component: {fileID: 915972653}
   - component: {fileID: 915972655}
   m_Layer: 0
-  m_Name: Menu
+  m_Name: Shop Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &915972653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915972652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8dc57f1374d684ba76e7b05a268cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &915972654
 Transform:
   m_ObjectHideFlags: 0
@@ -40549,7 +40536,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 915972653}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: RateUs
         m_Mode: 1
@@ -43244,6 +43231,7 @@ MonoBehaviour:
   lvl_1_openMouth: {fileID: 1877893955}
   fishRect: {fileID: 5616521703179480117}
   weaponRect: {fileID: 1198844778598107125}
+  playButton: {fileID: 1779751581}
 --- !u!114 &1092457305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59250,7 +59238,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 915972653}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
@@ -80984,7 +80972,7 @@ GameObject:
   - component: {fileID: 3500707097515489394}
   - component: {fileID: 2576109774788874212}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: Shop Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112351,11 +112339,11 @@ SceneRoots:
   - {fileID: 1092457301}
   - {fileID: 849994055}
   - {fileID: 1486371628}
-  - {fileID: 2020047767}
+  - {fileID: 3458243633543998844}
   - {fileID: 915972654}
   - {fileID: 218800106}
   - {fileID: 2030294573}
   - {fileID: 1064452366}
-  - {fileID: 3458243633543998844}
   - {fileID: 1717963201}
   - {fileID: 1894587729}
+  - {fileID: 2020047767}

@@ -26,31 +26,31 @@ public class WeaponDetailManager : MonoBehaviour
     
     public void SetIDAndWeapon()
     {
-        if ((PlayerPrefsData.IsWeaponPurchased(myID) || isFree)&& UIManager.instance.isNullWeapon())
+        if ((PlayerPrefsData.IsWeaponPurchased(myID) || isFree)&& UIManager.Instance.isNullWeapon())
         { 
             selectBorder.GetComponent<Image>().enabled = true;
             selectButton.SetActive(false);
             selectedButton.SetActive(true);
             
-            UIManager.instance.borderWeapon = selectBorder.GetComponent<Image>();
-            UIManager.instance.selectedWeapon = selectedButton;
-            UIManager.instance.selectWeapon = selectButton;
+            UIManager.Instance.borderWeapon = selectBorder.GetComponent<Image>();
+            UIManager.Instance.selectedWeapon = selectedButton;
+            UIManager.Instance.selectWeapon = selectButton;
             IAPDataHolder.Instance.index = id;
             PlayerPrefsData.SetCurrentWeaponIndex(id);
         }
-        else if ((PlayerPrefsData.IsWeaponPurchased(myID) || isFree)&& !UIManager.instance.isNullWeapon())
+        else if ((PlayerPrefsData.IsWeaponPurchased(myID) || isFree)&& !UIManager.Instance.isNullWeapon())
         {
-            UIManager.instance.borderWeapon.enabled = false;
-            UIManager.instance.selectedWeapon.SetActive(false);
-            UIManager.instance.selectWeapon.SetActive(true);
+            UIManager.Instance.borderWeapon.enabled = false;
+            UIManager.Instance.selectedWeapon.SetActive(false);
+            UIManager.Instance.selectWeapon.SetActive(true);
             
             selectBorder.GetComponent<Image>().enabled = true;
             selectButton.SetActive(false);
             selectedButton.SetActive(true);
             
-            UIManager.instance.borderWeapon = selectBorder.GetComponent<Image>();
-            UIManager.instance.selectedWeapon = selectedButton;
-            UIManager.instance.selectWeapon = selectButton;
+            UIManager.Instance.borderWeapon = selectBorder.GetComponent<Image>();
+            UIManager.Instance.selectedWeapon = selectedButton;
+            UIManager.Instance.selectWeapon = selectButton;
             IAPDataHolder.Instance.index = id;
             PlayerPrefsData.SetCurrentWeaponIndex(id);
         }
