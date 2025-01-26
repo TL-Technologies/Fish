@@ -181,7 +181,6 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     {
         int weaponIndex = PlayerPrefsData.GetCurrentWeaponIndex();
         if (weaponIndex < 0) weaponIndex = 0; // Ensure index is not negative
-        Debug.LogError(weaponIndex);
         weaponList[weaponIndex].selectBorder.GetComponent<Image>().enabled = true;
         weaponList[weaponIndex].selectedButton.SetActive(true);
         weaponList[weaponIndex].selectButton.SetActive(false);

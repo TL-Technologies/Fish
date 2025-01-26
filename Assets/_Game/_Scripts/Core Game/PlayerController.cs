@@ -48,13 +48,13 @@ public class PlayerController : MonoBehaviour
             {
                 if (direction.x > 0)
                 {
-                    Debug.Log("Moving Right");
+                    //Debug.Log("Moving Right");
                     movingLeft = false;
                 }
                    
                 else
                 {
-                    Debug.Log("Moving Left");
+                    //Debug.Log("Moving Left");
                     movingLeft = true;
                 }
                   
@@ -64,12 +64,12 @@ public class PlayerController : MonoBehaviour
                 if (direction.y > 0)
                 {
                     
-                    Debug.Log("Moving Up");
+                    //Debug.Log("Moving Up");
 
                 }
                 else
                 {
-                    Debug.Log("Moving Down");
+                    //Debug.Log("Moving Down");
 
                 }
             }

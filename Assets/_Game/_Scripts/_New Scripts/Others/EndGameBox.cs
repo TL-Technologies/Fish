@@ -53,7 +53,6 @@ public class EndGameBox : BaseBox
     public override void Show()
     {
         base.Show();
-        Debug.LogError("Yeee--->" + FindObjectOfType<GameManager>().win);
         switch (FindObjectOfType<GameManager>().win)
         {
             case true:
@@ -107,7 +106,6 @@ public class EndGameBox : BaseBox
         playerClone.transform.GetChild(1).gameObject.SetActive(false);
         playerClone.transform.GetComponentInChildren<Mouth>(transform).gameObject.SetActive(false);
         playerClone.gameObject.SetActive(true);
-        Debug.Log("Added");
     }
 
     public override void Hide()

@@ -82,7 +82,6 @@ public abstract class BaseBox : MonoBehaviour
 
 	protected virtual void DoAppear()
 	{
-		Debug.Log("Do Appear");
 		if (isAnim)
         {
             if (mainPanel != null)

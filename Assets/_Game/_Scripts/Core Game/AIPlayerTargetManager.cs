@@ -40,7 +40,6 @@ public class AIPlayerTargetManager : MonoBehaviour
             {
                 if (fish.ismainPlayer)
                 {
-                    Debug.Log("Main");
                     fish.fishName = FindObjectOfType<PlayerController>().fish.fishName;
                 }
                 else

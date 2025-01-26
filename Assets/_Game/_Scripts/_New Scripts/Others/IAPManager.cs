@@ -71,7 +71,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         foreach (var productId in productIds)
         {
-            Debug.Log(productId);
             builder.AddProduct(productId, ProductType.Consumable);
         }
 
@@ -101,19 +100,19 @@ public class IAPManager : MonoBehaviour, IStoreListener
     
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        Debug.LogError($"Initialization Success 3: {controller} {extensions}");
+        Debug.Log($"Initialization Success : ");
         storeController = controller;
         storeExtensionProvider = extensions;
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
-        Debug.LogError($"Initialization failed 1: {error}");
+        Debug.LogError($"Initialization failed 1 -->: {error}");
     }
 
     public void OnInitializeFailed(InitializationFailureReason error, string message)
     {
-        Debug.LogError($"Initialization failed 2: {error} - {message}");
+        Debug.LogError($"Initialization failed 2 -->: {error} - {message}");
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
@@ -130,7 +129,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private void OnPurchaseSuccess(string productId)
     {
         Debug.Log("Purchase Success: " + productId);
-       // PlayerPrefsData.SaveProductId(productId);
         if (productId == "com.brawl.fish.laser" ||productId == "com.brawl.fish.legendkatana" ||productId == "com.brawl.fish.lightining" ||productId == "com.brawl.fish.poisedon" ||productId == "com.brawl.fish.sword" ||productId == "com.brawl.fish.umbrella")
         {
             PlayerPrefsData.SaveWeaponId(productId);
@@ -148,7 +146,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             foreach (var p in PlayerPrefsData.GetAllPurchasedProductIds())
             {
-                Debug.Log(p);
                 if (s.GetComponent<FishDetailManager>().myID == p )
                 {
                  s.GetComponent<FishDetailManager>().selectedButton.SetActive(false);
@@ -162,7 +159,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             foreach (var p in PlayerPrefsData.GetAllPurchasedWeaponIds())
             {
-                Debug.Log(p);
                 if (s.GetComponent<WeaponDetailManager>().myID == p )
                 {
                     s.GetComponent<WeaponDetailManager>().selectedButton.SetActive(false);

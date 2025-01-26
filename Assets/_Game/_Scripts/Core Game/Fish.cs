@@ -106,7 +106,6 @@ public class Fish : MonoBehaviour
         }
         if (GetComponent<PlayerController>() != null)
         {
-            Debug.LogError("Calling this");
             AudioManager.Instance.Play("Die");
             FindObjectOfType<GameManager>().RetryGame();
         }

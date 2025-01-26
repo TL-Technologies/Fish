@@ -47,7 +47,6 @@ public class FishDetailManager : MonoBehaviour
         }
         else if ((PlayerPrefsData.IsProductPurchased(myID) || isFree)&& !UIManager.Instance.isNull())
         {
-            Debug.LogError("f");
             UIManager.Instance.border.enabled = false;
             UIManager.Instance.selected.SetActive(false);
             UIManager.Instance.select.SetActive(true);

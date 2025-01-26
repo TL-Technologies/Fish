@@ -138,7 +138,6 @@ public class GameManager : MonoBehaviour
 
     public void RetryGame()
     {
-        Debug.Log("Retry");
         isTimerRunning = false;
         //Invoke("InvokeRetryGame", 1);
         win = false;
@@ -176,8 +175,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Win");
        
         Destroy(FindObjectOfType<PlayerController>().GetComponent<CircleCollider2D>());
-       // Invoke("InvokeWinGame", 1);
-         showPOP();
+        Invoke("showPOP", 1);
     }
 
     void showPOP()
@@ -281,11 +279,9 @@ public class GameManager : MonoBehaviour
             var player = fish.transform.GetComponent<PlayerController>();
             if (player != null)
             {
-                Debug.Log("Yha");
                 // Update the player's highest rank
                 if (playerHighestRank == -1 || playerHighestRank > i + 1)
                 {
-                    Debug.Log("Yha 2" + playerHighestRank);
                     playerHighestRank = i + 1; // i is zero-based, rank is 1-based
                 }
             }

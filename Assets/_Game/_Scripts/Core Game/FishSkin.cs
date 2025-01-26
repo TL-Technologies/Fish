@@ -4,8 +4,8 @@ using UnityEngine;
 public class FishSkin : MonoBehaviour
 {
     
-        public string[] productIds;
-        public Sprite[] katana;
+    public string[] productIds;
+    public Sprite[] katana;
     [Serializable]
     public class Skin
     {

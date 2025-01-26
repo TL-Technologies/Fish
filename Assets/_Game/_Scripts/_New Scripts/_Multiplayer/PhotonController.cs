@@ -19,6 +19,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
@@ -41,7 +42,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     #region Private Internal Methods
 
-    
+    internal void RaiseEvt(byte code, object data, ReceiverGroup options)
+    {
+        RaiseEventOptions receiverOptions = new RaiseEventOptions { Receivers = options };
+        PhotonNetwork.RaiseEvent(code, data, receiverOptions, SendOptions.SendReliable);
+    }
 
     #endregion
 }

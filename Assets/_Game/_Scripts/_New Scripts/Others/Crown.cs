@@ -14,14 +14,13 @@ public class Crown : MonoBehaviour
     }
     public void SetActiveCrown(int index)
     {
-        Debug.Log("Crown index: " + index);
-        //{
+       
         for (int i = 0; i < crowns.Length; i++)
         {
             crowns[i].gameObject.SetActive(false);
         }
         if (index >= crowns.Length) return;
-        //}
+        
         crowns[index].gameObject.SetActive(true);
     }
 }
