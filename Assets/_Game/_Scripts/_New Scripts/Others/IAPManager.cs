@@ -17,7 +17,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
      private void Start()
      {
          StartCoroutine(cc());
-         
         AssignButtonListeners();
         OnPurchaseRefreshUi();
     }
@@ -87,12 +86,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         if (IsInitialized())
         {
-            Debug.LogError($"Purchasing : {productId}");
+            Debug.Log($"Purchasing : --> {productId}");
             Product product = storeController.products.WithID(productId);
 
             if (product != null)
             {
-                Debug.Log($"Purchasing 2: {product.definition.id}");
+                Debug.Log($"Purchasing 2 : ---> {product.definition.id}");
                 storeController.InitiatePurchase(product);
             }
         }
