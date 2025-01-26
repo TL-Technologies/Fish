@@ -15,6 +15,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     #region Variables
 
     private Dictionary<int, GameObject> PlayerList;
+    [SerializeField]private string roomCode;
     
     [Header("Player List")]
     [SerializeField] internal GameObject PlayerlistPrefab;
@@ -88,13 +89,16 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnCreatedRoom()                                                           // When room gets created we get this callback
     { 
         string roomId = PhotonNetwork.CurrentRoom.Name;
-        this.roomId.text = "Room Id : " + roomId;
-        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
+        Debug.Log(roomId + " is created");
     }
 
-    public override void OnJoinedRoom()                                                          // When Master or whoever created the room, Joins the room we get this callback
+    public override void OnJoinedRoom()                                                          // When other player Or I join the room Will get this
     {
+        roomCode = PhotonNetwork.CurrentRoom.Name;
+        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
+        this.roomId.text = "Room Id : " + roomCode;
         optionPage.SetActive(false);
+        joinRoomPanel.SetActive(false);
         roomPanel.SetActive(true);
         if (PlayerList == null)
         {
@@ -117,7 +121,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room we get this callback but the player who joined does not get this.
+    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room all get this callback but the player who joined does not get this.
     {
         currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
