@@ -6,6 +6,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 {
@@ -18,7 +19,27 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     [Header("Player List")]
     [SerializeField] internal GameObject PlayerlistPrefab;
     [SerializeField] internal Transform PlayerlistParent;
+    
+    
+    [Space,Header("UI Data")]
+    [SerializeField] private Button createRoomButton;
+    [SerializeField] private Button joinRoomButton;
+    [SerializeField] private Button joinButton;
+    
+    [Space]
+    [SerializeField] private GameObject optionPage;
+    [SerializeField] private GameObject roomPanel;
+    [SerializeField] private GameObject joinRoomPanel;
+    
+    [Space]
+    [SerializeField] TMP_InputField roomNameInputField;
+    
 
+    [Space, Header("Room Id")] 
+    [SerializeField] private TMP_Text currentPlayers; 
+    [SerializeField] private TMP_Text roomId; 
+    [SerializeField] TMP_Text warning;
+    
     #endregion
     
     
@@ -32,8 +53,13 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Start()
     {
+        PhotonNetwork.LocalPlayer.NickName = PlayerPrefsData.GetName();
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AddCallbackTarget(this);
+        createRoomButton.AddCustomListner(CreateRoom);
+        joinRoomButton.AddCustomListner(OnClickJoinRoom);
+        joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
+        
     }
 
     #endregion
@@ -59,17 +85,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to master ");
     }
 
-    public override void OnCreatedRoom()                                                           // Getting Room id
-    {
-        Debug.Log(PhotonNetwork.CurrentRoom + " is created!");
+    public override void OnCreatedRoom()                                                           // When room gets created we get this callback
+    { 
         string roomId = PhotonNetwork.CurrentRoom.Name;
-        Debug.Log("Room id " + roomId);
+        this.roomId.text = "Room Id : " + roomId;
+        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 
-    public override void OnJoinedRoom()
+    public override void OnJoinedRoom()                                                          // When Master or whoever created the room, Joins the room we get this callback
     {
-        Debug.Log("On room Joined");
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " Joined");
+        optionPage.SetActive(false);
+        roomPanel.SetActive(true);
         if (PlayerList == null)
         {
             PlayerList = new Dictionary<int, GameObject>();
@@ -78,7 +104,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
-            playerList.transform.GetChild(0).GetComponent<TMP_Text>().text = p.NickName;
+            playerList.transform.GetChild(0).GetComponent<Text>().text = p.NickName;
             if(p.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 playerList.transform.GetChild(1).gameObject.SetActive(true);
@@ -91,10 +117,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room we get this callback but the player who joined does not get this.
     {
+        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
-        playerList.transform.GetChild(0).GetComponent<TMP_Text>().text = newPlayer.NickName;
+        playerList.transform.GetChild(0).GetComponent<Text>().text = newPlayer.NickName;
         if (newPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             playerList.transform.GetChild(1).gameObject.SetActive(true);
@@ -134,6 +161,36 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         RaiseEventOptions receiverOptions = new RaiseEventOptions { Receivers = options };
         PhotonNetwork.RaiseEvent(code, data, receiverOptions, SendOptions.SendReliable);
+    }
+
+    private void CreateRoom()
+    {
+       var roomName = Random.Range(1000, 99999).ToString();
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 10 });
+    }
+    
+    private void OnClickJoinRoom()
+    {
+       joinRoomPanel.SetActive(true);
+       optionPage.SetActive(false);
+    }
+
+
+    private void RoomCodeEnteredAndJoin()
+    {
+        if (string.IsNullOrEmpty(roomNameInputField.text) || string.IsNullOrWhiteSpace(roomNameInputField.text))
+        {
+            warning.text = "Please enter a valid room name";
+            this.GetGenericDelay(3,()=>
+            {
+                warning.text = "";
+            });
+        }
+        else
+        {
+            var roomCode = roomNameInputField.text;
+            PhotonNetwork.JoinRoom(roomCode);
+        }
     }
 
     #endregion

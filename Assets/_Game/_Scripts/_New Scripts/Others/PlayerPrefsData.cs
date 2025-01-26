@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,13 @@ public static class PlayerPrefsData
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => { onComplete(); });
     }
+
+    public static void GetGenericDelay(this MonoBehaviour mono, float delay , Action onComplete)
+    {
+        StaticData.GetDelay(delay);
+        onComplete?.Invoke();
+    }
+    
     
     #endregion
     
