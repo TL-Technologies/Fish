@@ -41,6 +41,8 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] private TMP_Text roomId; 
     [SerializeField] TMP_Text warning;
     
+    
+    
     #endregion
     
     
@@ -139,12 +141,14 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        Debug.Log(otherPlayer.NickName + " is left room");
         Destroy(PlayerList[otherPlayer.ActorNumber]);
         PlayerList.Remove(otherPlayer.ActorNumber);
     }
 
     public override void OnLeftRoom()
     {
+        Debug.Log("left room");
         if (PlayerList.Count > 0)
         {
             foreach (GameObject obj in PlayerList.Values)

@@ -29209,6 +29209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cb3d88912535743bf7d27b8fd35c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomCode: 
   PlayerlistPrefab: {fileID: 2783647202515867537, guid: 3c52a7253af58554f935edfc092a6e48, type: 3}
   PlayerlistParent: {fileID: 1232225706}
   createRoomButton: {fileID: 363930571}

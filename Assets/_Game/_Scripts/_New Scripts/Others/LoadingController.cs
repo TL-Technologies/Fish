@@ -34,7 +34,7 @@ public class LoadingController : MonoBehaviour
          .OnComplete(() =>
          {
             loadingPanel.SetActive(false);
-            player.SetActive(true);
+            //player.SetActive(true);
             mainMenu.SetActive(true);
             loader.fillAmount = 1;
          }).SetUpdate(true);
