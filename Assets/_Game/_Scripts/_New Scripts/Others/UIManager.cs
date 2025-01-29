@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -64,6 +65,8 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     
     [Space][Header("Play Button")]
     [SerializeField] private Button playButton;
+    [SerializeField] private Button multiplayerBtn;
+    [SerializeField] internal GameObject loadingScreen;
     
    
 
@@ -105,6 +108,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
         shopClose.AddCustomListner(CloseShop);
         usernameInput.onEndEdit.AddListener(OnClickDone);
         playButton.AddCustomListner(OnClickPlayButton);
+        multiplayerBtn.AddCustomListner(OnClickMultiplayer);
     }
 
     private void Openshop()
@@ -243,6 +247,30 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     {
         AudioManager.Instance.Play("Click");
         SceneManager.LoadScene(1);
+    }
+
+    private void OnClickMultiplayer()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("Connect to server");
+            loadingScreen.SetActive(true);
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        
+        PhotonController.instance.multiplayerPanel.SetActive(true);
+        LoadingController.Instance.mainMenu.SetActive(false);
+        LoadingController.Instance.player.SetActive(false);
     }
 
 }

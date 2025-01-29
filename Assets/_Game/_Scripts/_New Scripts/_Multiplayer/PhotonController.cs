@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -26,11 +28,13 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] private Button createRoomButton;
     [SerializeField] private Button joinRoomButton;
     [SerializeField] private Button joinButton;
+    [SerializeField] private Button homeBtn;
     
     [Space]
     [SerializeField] private GameObject optionPage;
     [SerializeField] private GameObject roomPanel;
     [SerializeField] private GameObject joinRoomPanel;
+    [SerializeField] internal GameObject multiplayerPanel;
     
     [Space]
     [SerializeField] TMP_InputField roomNameInputField;
@@ -65,8 +69,10 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         createRoomButton.AddCustomListner(CreateRoom);
         joinRoomButton.AddCustomListner(OnClickJoinRoom);
         joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
+        homeBtn.AddCustomListner(OnClickHomeBtn);
         
     }
+    
 
     #endregion
    
@@ -81,6 +87,12 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Debug.Log(returnCode + message);
     }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log(returnCode + message);
+        StartCoroutine(ShowJoinRoomPageWarning(message));
+    }
     public override void OnConnected()
     {
         Debug.Log("Connected to Internet ");
@@ -89,6 +101,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnConnectedToMaster()
     {
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to master ");
+        UIManager.Instance.loadingScreen.SetActive(false);
     }
 
     public override void OnCreatedRoom()                                                           // When room gets created we get this callback
@@ -202,11 +215,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         
         if (string.IsNullOrEmpty(roomNameInputField.text) || string.IsNullOrWhiteSpace(roomNameInputField.text))
         {
-            warning.text = "Please enter a valid room name";
-            this.GetGenericDelay(3,()=>
-            {
-                warning.text = "";
-            });
+            StartCoroutine(ShowJoinRoomPageWarning("Please enter a valid room code"));
         }
         else
         {
@@ -214,6 +223,31 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             PhotonNetwork.JoinRoom(roomCode);
         }
     }
+
+    private void OnClickHomeBtn()
+    {
+         PlayerList.Clear();
+         foreach (Transform obj in PlayerlistParent)
+         {
+             Destroy(obj.gameObject);
+         }
+        PhotonNetwork.Disconnect();
+        LoadingController.Instance.mainMenu.SetActive(true);
+        LoadingController.Instance.player.SetActive(true);
+        optionPage.SetActive(true);
+        roomPanel.SetActive(false);
+        joinRoomPanel.SetActive(false);
+        multiplayerPanel.SetActive(false);
+        
+    }
+    
+    IEnumerator ShowJoinRoomPageWarning(string msg)
+    {
+        warning.text = msg;
+        yield return new WaitForSeconds(3);
+        warning.text = "";
+    }
+    
 
     #endregion
 }

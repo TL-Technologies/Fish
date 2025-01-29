@@ -2,19 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityBase.DesignPattern;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingController : MonoBehaviour
+public class LoadingController : SingletonMonoBehavier<LoadingController>
 {
-   
-   [SerializeField] GameObject mainMenu;
-   [SerializeField] GameObject loadingPanel;
-   [SerializeField] GameObject player;
-   [SerializeField] Image loader;
+   [SerializeField] internal GameObject mainMenu;
+   [SerializeField] internal GameObject loadingPanel;
+   [SerializeField] internal GameObject player;
+   [SerializeField]  Image loader;
 
    #region Unity Methods
-
    private void Start()
    {
      ShowLoading();
@@ -34,7 +33,7 @@ public class LoadingController : MonoBehaviour
          .OnComplete(() =>
          {
             loadingPanel.SetActive(false);
-            //player.SetActive(true);
+            player.SetActive(true);
             mainMenu.SetActive(true);
             loader.fillAmount = 1;
          }).SetUpdate(true);
