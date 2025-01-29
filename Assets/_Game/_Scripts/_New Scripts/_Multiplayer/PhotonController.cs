@@ -56,7 +56,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Start()
     {
-        PhotonNetwork.LocalPlayer.NickName = PlayerPrefsData.GetName();
+        PhotonNetwork.LocalPlayer.NickName = Random.Range(1000, 9999).ToString();
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AddCallbackTarget(this);
         createRoomButton.AddCustomListner(CreateRoom);
@@ -123,7 +123,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room all get this callback but the player who joined does not get this.
+    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room all other players of room get this callback but the player who joined does not get this.
     {
         currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
@@ -139,16 +139,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         PlayerList.Add(newPlayer.ActorNumber, playerList);
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)    // When a player lefts the rrom all other players in the room gets this
     {
-        Debug.Log(otherPlayer.NickName + " is left room");
+        Debug.Log(otherPlayer.NickName + " is left room " + PhotonNetwork.CurrentRoom);
+        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         Destroy(PlayerList[otherPlayer.ActorNumber]);
         PlayerList.Remove(otherPlayer.ActorNumber);
     }
 
-    public override void OnLeftRoom()
+    public override void OnLeftRoom()                         // I get this if I leave the room
     {
-        Debug.Log("left room");
+        Debug.Log("You left room -->");
         if (PlayerList.Count > 0)
         {
             foreach (GameObject obj in PlayerList.Values)
