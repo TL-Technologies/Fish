@@ -41,6 +41,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] private TMP_Text roomId; 
     [SerializeField] TMP_Text warning;
     
+    [Space, Header("Warning Controller")] 
+    [SerializeField] private WarningManager e_warningManager;
+    
     
     
     #endregion
@@ -142,6 +145,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnPlayerLeftRoom(Player otherPlayer)    // When a player lefts the rrom all other players in the room gets this
     {
         Debug.Log(otherPlayer.NickName + " is left room " + PhotonNetwork.CurrentRoom);
+        e_warningManager.ShowWarning(otherPlayer.NickName + " has left room ");
         currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         Destroy(PlayerList[otherPlayer.ActorNumber]);
         PlayerList.Remove(otherPlayer.ActorNumber);
@@ -187,6 +191,15 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void RoomCodeEnteredAndJoin()
     {
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        
         if (string.IsNullOrEmpty(roomNameInputField.text) || string.IsNullOrWhiteSpace(roomNameInputField.text))
         {
             warning.text = "Please enter a valid room name";
