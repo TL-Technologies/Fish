@@ -238,6 +238,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         roomPanel.SetActive(false);
         joinRoomPanel.SetActive(false);
         multiplayerPanel.SetActive(false);
+        roomNameInputField.text = "";
         
     }
     

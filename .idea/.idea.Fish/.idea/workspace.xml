@@ -7,7 +7,6 @@
     <list default="true" id="14e03131-111a-470d-ab7d-0465f4bf08d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Scene/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scene/Menu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/LoadingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/LoadingController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/UIManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" afterDir="false" />
     </list>
@@ -21,6 +20,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Fish_clone_0/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Unity/Personal/Ludo/Ludo/Assets/LUDO/Script/Ludo/PhotonController/PhotonController.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
