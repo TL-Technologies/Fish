@@ -29,8 +29,12 @@ public class Extra : MonoBehaviourPunCallbacks
             }
         }
 
-        // Initialize AI Target Manager
-        FindObjectOfType<AIPlayerTargetManager>()?.atStart();
+        if (PhotonController.instance.allowBots)
+        {
+            // Initialize AI Target Manager
+             FindObjectOfType<AIPlayerTargetManager>()?.atStart();
+        }
+       
 
         if (!photonView.IsMine)
         {

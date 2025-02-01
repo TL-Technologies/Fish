@@ -57,6 +57,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     [Space, Header("Warning Controller")] 
     [SerializeField] private WarningManager e_warningManager;
     
+    [Space, Header("Allow Bots")] 
+    [SerializeField] internal bool allowBots;
+    
     
     
     #endregion
