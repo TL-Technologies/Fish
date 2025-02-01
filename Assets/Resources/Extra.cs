@@ -8,6 +8,10 @@ public class Extra : MonoBehaviourPunCallbacks
 {
     private void Start()
     {
+        if (PhotonController.instance.gameType == PhotonController.GameType.MultiPlayer)
+        {
+            
+       
         GetComponent<PlayerController>().boundsCollider = GameObject.FindGameObjectWithTag("Boundry Collider").GetComponent<BoxCollider2D>();
 
         PlayerSpawner playerSpawner = FindObjectOfType<PlayerSpawner>();
@@ -36,6 +40,7 @@ public class Extra : MonoBehaviourPunCallbacks
         else
         {
             playerSpawner.camTarget.target = transform;
+        }
         }
     }
 }

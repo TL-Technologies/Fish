@@ -17,6 +17,10 @@ public class PlayerSpawner : MonoBehaviour
         {
            var player = Instantiate(PlayerPrefab);
            manager.playerController = player.GetComponent<PlayerController>();
+           player.GetComponent<PlayerController>().boundsCollider = GameObject.FindGameObjectWithTag("Boundry Collider").GetComponent<BoxCollider2D>();
+           manager.playerController.joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();
+           camTarget.target = player.transform;
+           FindObjectOfType<AIPlayerTargetManager>()?.atStart();
         }
         else
         {
