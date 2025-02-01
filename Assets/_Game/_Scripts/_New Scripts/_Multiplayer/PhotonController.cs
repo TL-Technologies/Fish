@@ -100,7 +100,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             if (!PhotonNetwork.IsMasterClient)
             {
                 allowBots = data2;
-                SceneManager.LoadScene(2);
+                PhotonNetwork.LoadLevel(2);
             }
         }
     }
