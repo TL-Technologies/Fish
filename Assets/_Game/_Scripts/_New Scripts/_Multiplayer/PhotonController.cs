@@ -208,7 +208,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnLeftRoom()                         // I get this if I leave the room
     {
         Debug.Log("You left room -->");
-        if (PlayerList.Count > 0)
+        if (PlayerList?.Count > 0)
         {
             foreach (GameObject obj in PlayerList.Values)
             {

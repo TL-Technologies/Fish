@@ -48,6 +48,7 @@ public class EndGameBox : BaseBox
             }
             else
             {
+                PhotonNetwork.Disconnect();
                 SceneManager.LoadScene(0);
             }
         });
