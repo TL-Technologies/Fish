@@ -25,20 +25,18 @@ public class AIPlayerTargetManager : MonoBehaviour
 
     public void atStart()
     {
+        allFishes.Clear();
         int count = spawnTargets.Count / 2;
-        //StartCoroutine(main());
-        allFishes.Add(mainFish);
+        foreach (var s in FindObjectOfType<PlayerSpawner>().players)
+        {
+            allFishes.Add(s.gameObject.GetComponent<Fish>());
+        }
         for (int i = 0; i < count; i++)
         {
-            //SpawnAiPlayer();
+            SpawnAiPlayer();
         }
     }
-
-    IEnumerator main()
-    {
-        yield return new WaitForSeconds(1f);
-        allFishes.Add(mainFish);
-    }
+    
     public void SpawnAiPlayer()
     {
         

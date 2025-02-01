@@ -14,22 +14,21 @@ public class AiPlayerController : MonoBehaviour
 
     private void Start()
     {
-        /*AIPlayerTargetManager = FindObjectOfType<AIPlayerTargetManager>();
-        FindTarget();*/
-    }
-
-    public void Atsrta()
-    {
         AIPlayerTargetManager = FindObjectOfType<AIPlayerTargetManager>();
         FindTarget();
     }
+    
 
     public void FindTarget()
     {
         int randomIndex = Random.Range(0, AIPlayerTargetManager.targets.Count);
 
         Transform randonTarget = AIPlayerTargetManager.targets[randomIndex];
-        GotoTarget(randonTarget);
+        if (randonTarget != null)
+        {
+            GotoTarget(randonTarget);
+        }
+        
 
         AIPlayerTargetManager.targets.RemoveAt(randomIndex);
 

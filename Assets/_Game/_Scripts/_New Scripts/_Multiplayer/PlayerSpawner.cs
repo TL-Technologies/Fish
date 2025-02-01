@@ -32,11 +32,7 @@ public class PlayerSpawner : MonoBehaviour
                 //player.transform.position = Vector3.zero;
                 manager.playerController.joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();
             }
-            else
-            {
-                
-            }
-            FindObjectOfType<AIPlayerTargetManager>().atStart();
+           
 
         }
     }
