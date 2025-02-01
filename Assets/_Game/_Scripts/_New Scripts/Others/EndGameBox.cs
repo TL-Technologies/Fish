@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -125,11 +126,19 @@ public class EndGameBox : BaseBox
 
     private void OnClickHome()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         SceneManager.LoadScene(0);
     }
 
     private void OnClickShop()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         SceneManager.LoadScene(0);
         //var box = ShopBox.Setup();
         //box.Show();

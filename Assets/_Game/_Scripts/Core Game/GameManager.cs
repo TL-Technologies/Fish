@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     void ShowPause()
     {
+        Time.timeScale = 0;
         PauseBox.Setup();
     }
 

@@ -167,6 +167,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             {
                 playerList.transform.GetChild(1).gameObject.SetActive(false );
             }
+
+            if (PlayerList.ContainsKey(p.ActorNumber))
+            {
+                PlayerList.Remove(p.ActorNumber);
+            }
             PlayerList.Add(p.ActorNumber, playerList);
         }
     }
@@ -183,6 +188,10 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         else
         {
             playerList.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        if (PlayerList.ContainsKey(newPlayer.ActorNumber))
+        {
+            PlayerList.Remove(newPlayer.ActorNumber);
         }
         PlayerList.Add(newPlayer.ActorNumber, playerList);
     }

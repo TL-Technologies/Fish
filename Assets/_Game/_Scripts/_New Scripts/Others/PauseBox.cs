@@ -1,6 +1,7 @@
 using MoreMountains.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -114,10 +115,16 @@ public class PauseBox : BaseBox
     public override void Hide()
     {
         base.Hide();
+        Time.timeScale = 1;
         //Observer.Instance.Notify(ObserverName.ON_CLOSE_SETTING);
     }
     public void OnClickHome()
     {
+        Time.timeScale = 1;
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         SceneManager.LoadScene(0);
     }    
 }
