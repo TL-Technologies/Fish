@@ -14,6 +14,12 @@ public class AiPlayerController : MonoBehaviour
 
     private void Start()
     {
+        /*AIPlayerTargetManager = FindObjectOfType<AIPlayerTargetManager>();
+        FindTarget();*/
+    }
+
+    public void Atsrta()
+    {
         AIPlayerTargetManager = FindObjectOfType<AIPlayerTargetManager>();
         FindTarget();
     }

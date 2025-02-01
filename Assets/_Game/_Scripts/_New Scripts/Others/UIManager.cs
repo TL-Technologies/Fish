@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : SingletonMonoBehavier<UIManager>
@@ -65,7 +66,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     
     [Space][Header("Play Button")]
     [SerializeField] private Button playButton;
-    [SerializeField] private Button startGame;
+    [SerializeField] private Button StartMultipayerGame;
     [SerializeField] private Button multiplayerBtn;
     [SerializeField] internal GameObject loadingScreen;
     
@@ -109,7 +110,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
         shopClose.AddCustomListner(CloseShop);
         usernameInput.onEndEdit.AddListener(OnClickDone);
         playButton.AddCustomListner(OnClickPlayButton);
-        startGame.AddCustomListner(OnClickStartGameButton);
+        StartMultipayerGame.AddCustomListner(OnClickStartGameButton);
         multiplayerBtn.AddCustomListner(OnClickMultiplayer);
     }
 
@@ -247,6 +248,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
 
     private void OnClickPlayButton()
     {
+        PhotonController.instance.gameType = PhotonController.GameType.SinglePlayer;
         AudioManager.Instance.Play("Click");
         SceneManager.LoadScene(1);
     }
@@ -254,7 +256,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     private void OnClickStartGameButton()
     {
         AudioManager.Instance.Play("Click");
-        SceneManager.LoadScene(2);
+      PhotonNetwork.LoadLevel(2);
     }
 
     private void OnClickMultiplayer()
@@ -279,6 +281,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
         PhotonController.instance.multiplayerPanel.SetActive(true);
         LoadingController.Instance.mainMenu.SetActive(false);
         LoadingController.Instance.player.SetActive(false);
+        PhotonController.instance.gameType = PhotonController.GameType.MultiPlayer;
     }
 
 }

@@ -28,55 +28,58 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        direction = joystick.Direction;
-
-        rb.velocity = transform.right * fish.speed;
-
-        if (direction != Vector2.zero)
+        if (joystick != null)
         {
-            // Calculate the angle between the current forward direction and the movement direction.
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            direction = joystick.Direction;
 
-            // Calculate the Y-axis rotation based on the movement direction.
-            float yRotation = (direction.x < 0) ? 180f : 0f; // 0 degrees for right, 180 degrees for left.
+            rb.velocity = transform.right * fish.speed;
 
-            //float anglee = Vector2.SignedAngle(Vector2.right, direction);
-            transform.eulerAngles = new Vector3(0, 0, angle);
-            body.localEulerAngles = new Vector3(yRotation, 0, 0);
-            
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            if (direction != Vector2.zero)
             {
-                if (direction.x > 0)
+                // Calculate the angle between the current forward direction and the movement direction.
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                // Calculate the Y-axis rotation based on the movement direction.
+                float yRotation = (direction.x < 0) ? 180f : 0f; // 0 degrees for right, 180 degrees for left.
+
+                //float anglee = Vector2.SignedAngle(Vector2.right, direction);
+                transform.eulerAngles = new Vector3(0, 0, angle);
+                body.localEulerAngles = new Vector3(yRotation, 0, 0);
+
+                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
                 {
-                    //Debug.Log("Moving Right");
-                    movingLeft = false;
+                    if (direction.x > 0)
+                    {
+                        //Debug.Log("Moving Right");
+                        movingLeft = false;
+                    }
+
+                    else
+                    {
+                        //Debug.Log("Moving Left");
+                        movingLeft = true;
+                    }
+
                 }
-                   
                 else
                 {
-                    //Debug.Log("Moving Left");
-                    movingLeft = true;
-                }
-                  
-            }
-            else
-            {
-                if (direction.y > 0)
-                {
-                    
-                    //Debug.Log("Moving Up");
+                    if (direction.y > 0)
+                    {
 
-                }
-                else
-                {
-                    //Debug.Log("Moving Down");
+                        //Debug.Log("Moving Up");
 
+                    }
+                    else
+                    {
+                        //Debug.Log("Moving Down");
+
+                    }
                 }
             }
+
+            // Ensure the player stays within bounds.
+            ClampToBounds();
         }
-
-        // Ensure the player stays within bounds.
-        ClampToBounds();
     }
 
     private void CalculateBounds()

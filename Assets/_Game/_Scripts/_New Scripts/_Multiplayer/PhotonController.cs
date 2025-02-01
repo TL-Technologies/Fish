@@ -14,8 +14,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     public static PhotonController instance;
 
+    public enum GameType
+    {
+        SinglePlayer,
+        MultiPlayer
+    }
+
     #region Variables
 
+    [Space, Header("Game Type")] 
+    [SerializeField] internal GameType gameType;
+    
     private Dictionary<int, GameObject> PlayerList;
     [SerializeField]private string roomCode;
     
@@ -70,6 +79,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         joinRoomButton.AddCustomListner(OnClickJoinRoom);
         joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
         homeBtn.AddCustomListner(OnClickHomeBtn);
+        PhotonNetwork.AutomaticallySyncScene = true;
         
     }
     
@@ -226,7 +236,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnClickHomeBtn()
     {
-         PlayerList.Clear();
+         PlayerList?.Clear();
          foreach (Transform obj in PlayerlistParent)
          {
              Destroy(obj.gameObject);

@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
             {
                 if (s != null)
                 {
-                    s.GetComponent<AiPlayerController>().gameObject.SetActive(false);
+                    s.GetComponent<AiPlayerController>()?.gameObject.SetActive(false);
                 }
               
             }

@@ -14,12 +14,23 @@ public class AIPlayerTargetManager : MonoBehaviour
 
     private void Start()
     {
-        int count = spawnTargets.Count / 2;
+        /*int count = spawnTargets.Count / 2;
         //StartCoroutine(main());
         allFishes.Add(mainFish);
         for (int i = 0; i < count; i++)
         {
             SpawnAiPlayer();
+        }*/
+    }
+
+    public void atStart()
+    {
+        int count = spawnTargets.Count / 2;
+        //StartCoroutine(main());
+        allFishes.Add(mainFish);
+        for (int i = 0; i < count; i++)
+        {
+            //SpawnAiPlayer();
         }
     }
 
