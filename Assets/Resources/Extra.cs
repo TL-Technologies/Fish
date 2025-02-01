@@ -26,11 +26,12 @@ public class Extra : MonoBehaviourPunCallbacks
         }
 
         // Initialize AI Target Manager
-        FindObjectOfType<AIPlayerTargetManager>().atStart();
+        FindObjectOfType<AIPlayerTargetManager>()?.atStart();
 
         if (!photonView.IsMine)
         {
             GetComponent<PlayerController>().enabled = false;
+            GetComponent<Fish>().ismainPlayer = false;
         }
         else
         {

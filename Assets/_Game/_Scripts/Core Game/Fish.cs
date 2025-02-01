@@ -100,8 +100,8 @@ public class Fish : MonoBehaviour
     {
         Debug.Log("Kill called");
         Instantiate(bonePrefab, transform.position, Quaternion.identity);
-        FindObjectOfType<AIPlayerTargetManager>().allFishes.Remove(this);
-        if (FindObjectOfType<AIPlayerTargetManager>().mainFish != null)
+        FindObjectOfType<AIPlayerTargetManager>()?.allFishes?.Remove(this);
+        if (FindObjectOfType<AIPlayerTargetManager>()?.mainFish != null)
         {
             FindObjectOfType<AIPlayerTargetManager>().SpawnAiPlayer();
         }
