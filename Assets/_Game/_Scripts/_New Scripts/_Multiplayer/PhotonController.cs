@@ -82,7 +82,6 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         joinRoomButton.AddCustomListner(OnClickJoinRoom);
         joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
         homeBtn.AddCustomListner(OnClickHomeBtn);
-        PhotonNetwork.AutomaticallySyncScene = true;
         
     }
     
@@ -93,7 +92,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     #region Photon Callbacks
     public void OnEvent(EventData photonEvent)
     {
-       
+        if (photonEvent.Code == StaticData.StartGame)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var data1 = (Player)receivedData[0];
+            var data2 = (bool)receivedData[1];
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                allowBots = data2;
+                SceneManager.LoadScene(2);
+            }
+        }
     }
     
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -131,6 +140,16 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         optionPage.SetActive(false);
         joinRoomPanel.SetActive(false);
         roomPanel.SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            UIManager.Instance.StartMultipayerGame.gameObject.SetActive(true);
+            UIManager.Instance.allowBots.SetActive(true);
+        }
+        else
+        {
+            UIManager.Instance.StartMultipayerGame.gameObject.SetActive(false);
+            UIManager.Instance.allowBots.SetActive(false);
+        }
         if (PlayerList == null)
         {
             PlayerList = new Dictionary<int, GameObject>();
@@ -261,7 +280,18 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         yield return new WaitForSeconds(3);
         warning.text = "";
     }
-    
+
+
+    public void OnClickStartGame()
+    {
+        object[] data =
+        {
+            PhotonNetwork.LocalPlayer,
+            allowBots
+        };
+        RaiseEvt(StaticData.StartGame, data, ReceiverGroup.Others);
+        PhotonNetwork.LoadLevel(2);
+    }
 
     #endregion
 }

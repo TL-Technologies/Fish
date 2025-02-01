@@ -45381,6 +45381,7 @@ MonoBehaviour:
   weaponRect: {fileID: 1198844778598107125}
   playButton: {fileID: 1779751581}
   StartMultipayerGame: {fileID: 1671251229}
+  allowBots: {fileID: 1562068001}
   multiplayerBtn: {fileID: 1426177230}
   loadingScreen: {fileID: 188512687}
 --- !u!114 &1092457305

@@ -65,9 +65,10 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     [SerializeField] internal ScrollRect weaponRect;
     
     [Space][Header("Play Button")]
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button StartMultipayerGame;
-    [SerializeField] private Button multiplayerBtn;
+    [SerializeField] internal Button playButton;
+    [SerializeField] internal Button StartMultipayerGame;
+    [SerializeField] internal GameObject allowBots;
+    [SerializeField] internal Button multiplayerBtn;
     [SerializeField] internal GameObject loadingScreen;
     
    
@@ -256,7 +257,8 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     private void OnClickStartGameButton()
     {
         AudioManager.Instance.Play("Click");
-      PhotonNetwork.LoadLevel(2);
+        PhotonController.instance.OnClickStartGame();
+        
     }
 
     private void OnClickMultiplayer()

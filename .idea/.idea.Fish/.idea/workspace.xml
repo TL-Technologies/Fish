@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="14e03131-111a-470d-ab7d-0465f4bf08d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/Core Game/AIPlayerTargetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/Core Game/AIPlayerTargetManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PlayerSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PlayerSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scene/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scene/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/PhotonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/StaticData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/_Multiplayer/StaticData.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +106,7 @@
       <workItem from="1737335659047" duration="927000" />
       <workItem from="1737826505818" duration="3146000" />
       <workItem from="1737871280205" duration="3915000" />
-      <workItem from="1738403097663" duration="17522000" />
+      <workItem from="1738403097663" duration="18718000" />
     </task>
     <servers />
   </component>
