@@ -75,13 +75,12 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Start()
     {
-        PhotonNetwork.LocalPlayer.NickName = Random.Range(1000, 9999).ToString();
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AddCallbackTarget(this);
-        createRoomButton.AddCustomListner(CreateRoom);
-        joinRoomButton.AddCustomListner(OnClickJoinRoom);
-        joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
-        homeBtn.AddCustomListner(OnClickHomeBtn);
+        uiData.Instance.createRoomButton.AddCustomListner(CreateRoom);
+        uiData.Instance.joinRoomButton.AddCustomListner(OnClickJoinRoom);
+        uiData.Instance.joinButton.AddCustomListner(RoomCodeEnteredAndJoin);
+        uiData.Instance.homeBtn.AddCustomListner(OnClickHomeBtn);
         
     }
     
@@ -122,6 +121,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnConnectedToMaster()
     {
+        PhotonNetwork.LocalPlayer.NickName = PlayerPrefsData.GetName();
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to master ");
         UIManager.Instance.loadingScreen.SetActive(false);
     }
@@ -135,11 +135,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnJoinedRoom()                                                          // When other player Or I join the room Will get this
     {
         roomCode = PhotonNetwork.CurrentRoom.Name;
-        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
-        this.roomId.text = "Room Id : " + roomCode;
-        optionPage.SetActive(false);
-        joinRoomPanel.SetActive(false);
-        roomPanel.SetActive(true);
+        uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
+        uiData.Instance.roomId.text = "Room Id : " + roomCode;
+        uiData.Instance.optionPage.SetActive(false);
+        uiData.Instance.joinRoomPanel.SetActive(false);
+        uiData.Instance.roomPanel.SetActive(true);
         if (PhotonNetwork.IsMasterClient)
         {
             UIManager.Instance.StartMultipayerGame.gameObject.SetActive(true);
@@ -178,7 +178,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room all other players of room get this callback but the player who joined does not get this.
     {
-        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
+        uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
         playerList.transform.GetChild(0).GetComponent<Text>().text = newPlayer.NickName;
         if (newPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
@@ -199,8 +199,8 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnPlayerLeftRoom(Player otherPlayer)    // When a player lefts the rrom all other players in the room gets this
     {
         Debug.Log(otherPlayer.NickName + " is left room " + PhotonNetwork.CurrentRoom);
-        e_warningManager.ShowWarning(otherPlayer.NickName + " has left room ");
-        currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
+        uiData.Instance.e_warningManager.ShowWarning(otherPlayer.NickName + " has left room ");
+        uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         Destroy(PlayerList[otherPlayer.ActorNumber]);
         PlayerList.Remove(otherPlayer.ActorNumber);
     }
@@ -238,8 +238,8 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     
     private void OnClickJoinRoom()
     {
-       joinRoomPanel.SetActive(true);
-       optionPage.SetActive(false);
+        uiData.Instance. joinRoomPanel.SetActive(true);
+        uiData.Instance.optionPage.SetActive(false);
     }
 
 
@@ -254,13 +254,13 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             PhotonNetwork.LeaveLobby();
         }
         
-        if (string.IsNullOrEmpty(roomNameInputField.text) || string.IsNullOrWhiteSpace(roomNameInputField.text))
+        if (string.IsNullOrEmpty(uiData.Instance.roomNameInputField.text) || string.IsNullOrWhiteSpace(uiData.Instance.roomNameInputField.text))
         {
             StartCoroutine(ShowJoinRoomPageWarning("Please enter a valid room code"));
         }
         else
         {
-            var roomCode = roomNameInputField.text;
+            var roomCode = uiData.Instance.roomNameInputField.text;
             PhotonNetwork.JoinRoom(roomCode);
         }
     }
@@ -275,19 +275,19 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.Disconnect();
         LoadingController.Instance.mainMenu.SetActive(true);
         LoadingController.Instance.player.SetActive(true);
-        optionPage.SetActive(true);
-        roomPanel.SetActive(false);
-        joinRoomPanel.SetActive(false);
-        multiplayerPanel.SetActive(false);
-        roomNameInputField.text = "";
+        uiData.Instance.optionPage.SetActive(true);
+        uiData.Instance.roomPanel.SetActive(false);
+        uiData.Instance.joinRoomPanel.SetActive(false);
+        uiData.Instance.multiplayerPanel.SetActive(false);
+        uiData.Instance.roomNameInputField.text = "";
         
     }
     
     IEnumerator ShowJoinRoomPageWarning(string msg)
     {
-        warning.text = msg;
+        uiData.Instance.warning.text = msg;
         yield return new WaitForSeconds(3);
-        warning.text = "";
+        uiData.Instance. warning.text = "";
     }
 
 

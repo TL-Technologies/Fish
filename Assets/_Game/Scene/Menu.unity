@@ -45279,6 +45279,7 @@ GameObject:
   - component: {fileID: 1092457302}
   - component: {fileID: 1092457304}
   - component: {fileID: 1092457305}
+  - component: {fileID: 1092457306}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45553,6 +45554,34 @@ MonoBehaviour:
     lvl_3_openMouth: {fileID: 21300000, guid: 34bdb65bc11352e4393585236a8232ff, type: 2}
     canUse: 0
     ids: com.brawl.fish.mahi
+--- !u!114 &1092457306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092457300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4868dd6be836a0243af8209e4b692797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerlistPrefab: {fileID: 2783647202515867537, guid: 3c52a7253af58554f935edfc092a6e48, type: 3}
+  PlayerlistParent: {fileID: 1232225706}
+  createRoomButton: {fileID: 363930571}
+  joinRoomButton: {fileID: 1398222699}
+  joinButton: {fileID: 1900131113}
+  homeBtn: {fileID: 2079563965}
+  optionPage: {fileID: 742759467}
+  roomPanel: {fileID: 967414826}
+  joinRoomPanel: {fileID: 659833197}
+  multiplayerPanel: {fileID: 126873028}
+  roomNameInputField: {fileID: 11811024}
+  currentPlayers: {fileID: 1433938436}
+  roomId: {fileID: 2099641289}
+  warning: {fileID: 1017746376}
+  e_warningManager: {fileID: 1865193880}
+  allowBots: 0
 --- !u!1 &1095509846
 GameObject:
   m_ObjectHideFlags: 0
