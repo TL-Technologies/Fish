@@ -36,7 +36,11 @@ public class PlayerSpawner : MonoBehaviour
                 manager.playerController = player.GetComponent<PlayerController>();
                 FindObjectOfType<SpeedBoostButton>().playerFish = player.GetComponent<Fish>();
                //camTarget.target = player.transform;
-                //player.transform.position = Vector3.zero;
+               float offsetX = Random.Range(-50f, 0f);
+               float offsetY = 0f; // Keep Y fixed if it's on the ground
+               float offsetZ = Random.Range(-50f, 50f);
+
+               player.transform.position = new Vector3(offsetX, offsetY, offsetZ);
                 manager.playerController.joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();
             }
            
