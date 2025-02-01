@@ -19,6 +19,7 @@ public class EndGameBox : BaseBox
     [SerializeField] GameObject unlockUI;
     [SerializeField] Button btnRetry, btnAddPiece;
     [SerializeField] private TextMeshProUGUI gameOverTxt;
+    [SerializeField] private TextMeshProUGUI retryBtnText;
     [SerializeField] private Image bannerWin;
     [SerializeField] private Button homeBtn, shopBtn, settingBtn, noAdsBtn;
     
@@ -41,7 +42,14 @@ public class EndGameBox : BaseBox
         homeBtn.onClick.AddListener(OnClickHome);
         btnRetry.AddCustomListner(() =>
         {
-            SceneManager.LoadScene(1);
+            if (PhotonController.instance.gameType == PhotonController.GameType.SinglePlayer)
+            {
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         });
         shopBtn.onClick.AddListener(OnClickShop);
         settingBtn.onClick.AddListener(OnClickSettingBtn);
@@ -54,6 +62,14 @@ public class EndGameBox : BaseBox
     public override void Show()
     {
         base.Show();
+        if (PhotonController.instance.gameType == PhotonController.GameType.SinglePlayer)
+        {
+            retryBtnText.text = "BATTLE";
+        }
+        else
+        {
+            retryBtnText.text = "HOME";
+        }
         switch (FindObjectOfType<GameManager>().win)
         {
             case true:

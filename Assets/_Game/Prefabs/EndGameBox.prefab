@@ -762,6 +762,7 @@ MonoBehaviour:
   btnRetry: {fileID: 7077737635661483906}
   btnAddPiece: {fileID: 4435619209392825981}
   gameOverTxt: {fileID: 385973408761472228}
+  retryBtnText: {fileID: 0}
   bannerWin: {fileID: 462591199939601194}
   homeBtn: {fileID: 484181227887445233}
   shopBtn: {fileID: 8554033964976523243}
