@@ -20,7 +20,9 @@ public class PlayerSpawner : MonoBehaviour
            player.GetComponent<PlayerController>().boundsCollider = GameObject.FindGameObjectWithTag("Boundry Collider").GetComponent<BoxCollider2D>();
            manager.playerController.joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();
            camTarget.target = player.transform;
+           FindObjectOfType<AIPlayerTargetManager>().mainFish = player.GetComponent<Fish>();
            FindObjectOfType<AIPlayerTargetManager>()?.atStart();
+           FindObjectOfType<SpeedBoostButton>().playerFish = player.GetComponent<Fish>();
         }
         else
         {
@@ -32,6 +34,7 @@ public class PlayerSpawner : MonoBehaviour
             if (player.GetPhotonView().IsMine)
             {
                 manager.playerController = player.GetComponent<PlayerController>();
+                FindObjectOfType<SpeedBoostButton>().playerFish = player.GetComponent<Fish>();
                //camTarget.target = player.transform;
                 //player.transform.position = Vector3.zero;
                 manager.playerController.joystick = GameObject.Find("Fixed Joystick").GetComponent<Joystick>();

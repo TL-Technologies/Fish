@@ -27,10 +27,18 @@ public class AIPlayerTargetManager : MonoBehaviour
     {
         allFishes.Clear();
         int count = spawnTargets.Count / 2;
-        foreach (var s in FindObjectOfType<PlayerSpawner>().players)
+        if (PhotonController.instance.gameType == PhotonController.GameType.MultiPlayer)
         {
-            allFishes.Add(s.gameObject.GetComponent<Fish>());
+            foreach (var s in FindObjectOfType<PlayerSpawner>().players)
+            {
+                allFishes.Add(s.gameObject.GetComponent<Fish>());
+            } 
         }
+        else
+        {
+            allFishes.Add(mainFish);
+        }
+       
         for (int i = 0; i < count; i++)
         {
             SpawnAiPlayer();
