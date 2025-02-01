@@ -112,7 +112,8 @@ public class EndGameBox : BaseBox
         highestRank.text = "HIGHEST RANK : " + s;
         killAmount.text = "SCORE : " + FindObjectOfType<PlayerController>().fish.score.ToString();
         int max = 0;
-        var player = FindObjectOfType<PlayerController>();
+        FindObjectOfType<GameManager>().playerController.gameObject.SetActive(false);
+        var player = FindObjectOfType<PlayerController>(true);
         player.gameObject.SetActive(false);
         var playerClone = Instantiate(player);
         playerClone.enabled = false;
