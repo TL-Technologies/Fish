@@ -31,7 +31,7 @@ public class Extra : MonoBehaviourPunCallbacks
 
             if (!photonView.IsMine)
             {
-                GetComponent<PlayerController>().enabled = false;
+                Destroy(GetComponent<PlayerController>());
                 GetComponent<Fish>().ismainPlayer = false;
             }
             else

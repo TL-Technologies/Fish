@@ -30,6 +30,7 @@ public class PlayerSpawner : MonoBehaviour
             var s = FindObjectOfType<AIPlayerTargetManager>();
             int randomVal = Random.Range(0, s.spawnTargets.Count);
             var player = PhotonNetwork.Instantiate(PlayerPrefab.name, s.spawnTargets[randomVal].localPosition, Quaternion.identity);
+            player.transform.SetParent(FindObjectOfType<AIPlayerTargetManager>().target);
             Debug.Log(player.name);
             player.GetComponent<PlayerController>().boundsCollider = GameObject.FindGameObjectWithTag("Boundry Collider").GetComponent<BoxCollider2D>();
             if (player.GetPhotonView().IsMine)

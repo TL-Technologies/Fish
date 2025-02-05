@@ -62,7 +62,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     
     public List<RoomInfo> roomList = new List<RoomInfo>();
     
-    private int countdownTime = 15;
+    public int countdownTime = 15;
     
     public Coroutine coroutine;
 
@@ -88,7 +88,26 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         uiData.Instance.homeBtn.AddCustomListner(OnClickHomeBtn);
         
     }
-    
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        SceneManager.sceneLoaded += OnLoaded;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        SceneManager.sceneLoaded -= OnLoaded;
+    }
+
+    private void OnLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.buildIndex == 0)
+        {
+            countdownTime = 15;
+        }
+    }
 
     #endregion
    
@@ -109,13 +128,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
         if (photonEvent.Code == StaticData.countDown)
         {
-            var receivedData = (object[])photonEvent.CustomData;
-            var data1 = (Player)receivedData[0];
-            var data2 = (int)receivedData[1];
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                countdownTime = data2;
-            }
+            object[] data = (object[])photonEvent.CustomData;
+            countdownTime = (int)data[0];
+
+            if (uiData.Instance.roomId != null)
+                uiData.Instance.roomId.text = "Time Left: " + countdownTime;
         }
     }
     
@@ -144,7 +161,10 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.LocalPlayer.NickName = PlayerPrefsData.GetName();
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to master ");
         UIManager.Instance.loadingScreen.SetActive(false);
-        PhotonNetwork.JoinLobby();
+        if (PhotonNetwork.IsConnectedAndReady)
+        {
+            PhotonNetwork.JoinLobby();
+        }
     }
 
     public override void OnCreatedRoom()                                                           // When room gets created we get this callback
@@ -156,48 +176,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnJoinedRoom()                                                          // When other player Or I join the room Will get this
     {
         roomCode = PhotonNetwork.CurrentRoom.Name;
-        multiplayerPanel.SetActive(true);
+        uiData.Instance.multiplayerPanel.SetActive(true);
         uiData.Instance.optionPage.SetActive(false);
         uiData.Instance.joinRoomPanel.SetActive(false);
-        if (UIManager.Instance.isSingle)
-        {
-            uiData.Instance.roomPanel.SetActive(true);
-            LoadingController.Instance.player.SetActive(false);
-            uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
-            uiData.Instance.roomId.text = "";
-            coroutine =  StartCoroutine(StartCountdown()); 
-            IEnumerator StartCountdown()
-            {
-                while (countdownTime >= 0)
-                {
-                    Debug.Log("Time Left: " + countdownTime); // Log to console
-                    if (roomId.text != null)
-                        roomId.text = "Time Left: " + countdownTime; // Update UI
-                    if (PhotonNetwork.LocalPlayer.IsMasterClient)
-                    {
-                        object[] data =
-                        {
-                            PhotonNetwork.LocalPlayer,
-                            countdownTime,
-                        };
-                        RaiseEvt(StaticData.countDown, data, ReceiverGroup.Others);
-                    }
-                    yield return new WaitForSeconds(1f); // Wait for 1 second
-                    countdownTime--;
-                }
-
-                Debug.Log("Countdown Complete!");
-                OnClickStartGame();
-            }
-        }
-        else
-        {
-            uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
-            uiData.Instance.roomId.text = "Room Id : " + roomCode;
-            uiData.Instance.roomPanel.SetActive(true);
-        }
-
-        if (PhotonNetwork.IsMasterClient)
+        
+        if (PhotonNetwork.IsMasterClient && !UIManager.Instance.isSingle)
         {
             UIManager.Instance.StartMultipayerGame.gameObject.SetActive(true);
             UIManager.Instance.allowBots.SetActive(true);
@@ -207,6 +190,24 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             UIManager.Instance.StartMultipayerGame.gameObject.SetActive(false);
             UIManager.Instance.allowBots.SetActive(false);
         }
+        
+        if (UIManager.Instance.isSingle)
+        {
+            uiData.Instance.roomPanel.SetActive(true);
+            LoadingController.Instance.player.SetActive(false);
+            uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+            uiData.Instance.roomId.text = "";
+            if (coroutine != null)
+                StopCoroutine(coroutine); // Stop any previous countdown to prevent duplicate coroutines
+            coroutine = StartCoroutine(StartCountdown());
+        }
+        else
+        {
+            uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+            uiData.Instance.roomId.text = "Room Id : " + roomCode;
+            uiData.Instance.roomPanel.SetActive(true);
+        }
+        
         if (PlayerList == null)
         {
             PlayerList = new Dictionary<int, GameObject>();
@@ -233,28 +234,21 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)                                 // When the any other player Joins the Room all other players of room get this callback but the player who joined does not get this.
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         uiData.Instance.currentPlayers.text = "Available : " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+ PhotonNetwork.CurrentRoom.MaxPlayers;
         GameObject playerList = Instantiate(PlayerlistPrefab, PlayerlistParent);
         playerList.transform.GetChild(0).GetComponent<Text>().text = newPlayer.NickName;
-        if (UIManager.Instance.isSingle)
-        {
-            coroutine = StartCoroutine(StartCountdown()); 
-            IEnumerator StartCountdown()
-            {
-                while (countdownTime >= 0)
-                {
-                    Debug.Log("Time Left: " + countdownTime); // Log to console
-                    if (roomId.text != null)
-                        roomId.text = "Time Left: " + countdownTime; // Update UI
-                    yield return new WaitForSeconds(1f); // Wait for 1 second
-                    countdownTime--;
-                }
 
-                Debug.Log("Countdown Complete!");
+        if (PhotonNetwork.IsMasterClient && UIManager.Instance.isSingle) // Ensure only master client runs the countdown
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine); // Stop any existing countdown to prevent multiple coroutines
             }
+            coroutine = StartCoroutine(StartCountdown());
         }
+
         if (newPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             playerList.transform.GetChild(1).gameObject.SetActive(true);
@@ -263,12 +257,14 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             playerList.transform.GetChild(1).gameObject.SetActive(false);
         }
+
         if (PlayerList.ContainsKey(newPlayer.ActorNumber))
         {
             PlayerList.Remove(newPlayer.ActorNumber);
         }
         PlayerList.Add(newPlayer.ActorNumber, playerList);
     }
+
 
     public override void OnPlayerLeftRoom(Player otherPlayer)    // When a player lefts the rrom all other players in the room gets this
     {
@@ -356,7 +352,12 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnClickHomeBtn()
     {
-        StopCoroutine(coroutine);
+        Debug.Log("OnClickHomeBtn");
+        UIManager.Instance.isSingle = false;
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
          PlayerList?.Clear();
          foreach (Transform obj in PlayerlistParent)
          {
@@ -383,14 +384,45 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public void OnClickStartGame()
     {
+        if (coroutine != null )
+        {
+            StopCoroutine(coroutine);
+        }
         object[] data =
         {
             PhotonNetwork.LocalPlayer,
-            allowBots = true
+            allowBots
         };
         RaiseEvt(StaticData.StartGame, data, ReceiverGroup.Others);
         PhotonNetwork.LoadLevel(2);
     }
+    
+    private IEnumerator StartCountdown()
+    {
+        while (countdownTime >= 0 && UIManager.Instance.isSingle)
+        {
+            if (PhotonNetwork.IsMasterClient) // Ensure only master client controls the countdown
+            {
+                Debug.Log("Time Left: " + countdownTime);
+
+                if (uiData.Instance.roomId != null)
+                    uiData.Instance.roomId.text = "Time Left: " + countdownTime;
+
+                object[] data = { countdownTime };
+                RaiseEvt(StaticData.countDown, data, ReceiverGroup.Others); // Send event to sync countdown
+            }
+            yield return new WaitForSeconds(1f);
+            countdownTime--;
+        }
+
+        Debug.Log("Countdown Complete!");
+        if (UIManager.Instance.isSingle)
+        {
+            OnClickStartGame();  
+        }
+        
+    }
+
 
     #endregion
 }

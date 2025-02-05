@@ -11,6 +11,7 @@ public class AiPlayerController : MonoBehaviour
     private Vector2 targetPosition;
     public GameObject bonePrefab;
     public Fish fish;
+    public CircleCollider2D circleCollider;
 
     private void Start()
     {

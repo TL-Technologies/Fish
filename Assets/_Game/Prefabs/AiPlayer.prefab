@@ -57766,6 +57766,7 @@ MonoBehaviour:
   target: {fileID: 0}
   bonePrefab: {fileID: 1188002383351674, guid: 77ba9d3fe16a2a74bbbc54283016e7d9, type: 3}
   fish: {fileID: -5348760666139627522}
+  circleCollider: {fileID: 5802212618687753359}
 --- !u!114 &-5348760666139627522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57808,6 +57809,9 @@ MonoBehaviour:
   lvl_3_tail: {fileID: 544773589465966418}
   lvl_3_oan: {fileID: 3077890721515040882}
   lvl_3_openMouth: {fileID: 3650020365151360187}
+  lvl1Particle: {fileID: 0}
+  lvl2Particle: {fileID: 0}
+  lvl3Particle: {fileID: 0}
 --- !u!1 &6501237220056504072
 GameObject:
   m_ObjectHideFlags: 0

@@ -262,6 +262,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnClickPlayButton()
     {
+        PhotonController.instance.countdownTime = 15;
         isSingle = true;
         if (PhotonNetwork.InLobby)
         {
@@ -295,6 +296,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnClickMultiplayer()
     {
+        uiData.Instance.Open();
         isSingle = false;
         if (PhotonNetwork.InLobby)
         {

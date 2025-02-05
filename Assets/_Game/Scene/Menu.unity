@@ -46043,6 +46043,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 188512687}
   optionpage: {fileID: 742759467}
   randomRoomPage: {fileID: 1330030043}
+  isSingle: 0
 --- !u!114 &1092457305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46240,6 +46241,7 @@ MonoBehaviour:
   warning: {fileID: 1017746376}
   e_warningManager: {fileID: 1865193880}
   allowBots: 0
+  allowBotsObject: {fileID: 1562068001}
 --- !u!1 &1093381576
 GameObject:
   m_ObjectHideFlags: 0

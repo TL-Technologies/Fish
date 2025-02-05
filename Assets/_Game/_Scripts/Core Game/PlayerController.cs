@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Quaternion initialRotation;
     
     public bool movingLeft = false;
+    
+    public CircleCollider2D circleCollider;
 
     private void Start()
     {
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         lockBody.rotation = initialRotation;
     }
+    
 
     void Update()
     {

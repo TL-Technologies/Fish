@@ -38,6 +38,8 @@ public class uiData : MonoBehaviour
     
     [Space, Header("Allow Bots")] 
     [SerializeField] internal bool allowBots;
+
+    public GameObject allowBotsObject;
     
     
     
@@ -46,5 +48,18 @@ public class uiData : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void close()
+    {
+        Debug.Log("close");
+        allowBotsObject.SetActive(false);
+        UIManager.Instance.StartMultipayerGame.gameObject.SetActive(false);
+    }
+    
+    public void Open()
+    {
+        allowBotsObject.SetActive(true);
+        UIManager.Instance.StartMultipayerGame.gameObject.SetActive(true);
     }
 }

@@ -64879,6 +64879,7 @@ MonoBehaviour:
   lockBody: {fileID: 3342510232621226059}
   fish: {fileID: 2791702448038012085}
   movingLeft: 0
+  circleCollider: {fileID: 0}
 --- !u!50 &3370738206065303464
 Rigidbody2D:
   serializedVersion: 4
