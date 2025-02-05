@@ -44,7 +44,7 @@ public class EndGameBox : BaseBox
         {
             if (PhotonController.instance.gameType == PhotonController.GameType.SinglePlayer)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(0);
             }
             else
             {
@@ -65,7 +65,7 @@ public class EndGameBox : BaseBox
         base.Show();
         if (PhotonController.instance.gameType == PhotonController.GameType.SinglePlayer)
         {
-            retryBtnText.text = "BATTLE";
+            retryBtnText.text = "HOME";
         }
         else
         {

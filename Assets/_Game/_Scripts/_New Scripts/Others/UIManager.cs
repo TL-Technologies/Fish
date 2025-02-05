@@ -1,14 +1,18 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
-public class UIManager : SingletonMonoBehavier<UIManager>
+public class UIManager : MonoBehaviourPunCallbacks
 {
+    public static UIManager Instance;
     [Header("Username")] [SerializeField] internal TMP_InputField usernameInput;
     [SerializeField] internal Button doneButton;
 
@@ -71,7 +75,16 @@ public class UIManager : SingletonMonoBehavier<UIManager>
     [SerializeField] internal Button multiplayerBtn;
     [SerializeField] internal GameObject loadingScreen;
     
-   
+    [Space][Header("Random Room")]
+    [SerializeField] internal GameObject optionpage;
+    [SerializeField] internal GameObject randomRoomPage;
+    public bool isSingle;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public bool isNull()
     {
@@ -249,10 +262,29 @@ public class UIManager : SingletonMonoBehavier<UIManager>
 
     private void OnClickPlayButton()
     {
-        PhotonController.instance.gameType = PhotonController.GameType.SinglePlayer;
+        isSingle = true;
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("Connect to server");
+            loadingScreen.SetActive(true);
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        PhotonNetwork.JoinRandomRoom();
+        PhotonController.instance.gameType = PhotonController.GameType.MultiPlayer;
         AudioManager.Instance.Play("Click");
-        SceneManager.LoadScene(1);
     }
+    
+   
     
     private void OnClickStartGameButton()
     {
@@ -263,6 +295,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
 
     private void OnClickMultiplayer()
     {
+        isSingle = false;
         if (PhotonNetwork.InLobby)
         {
             PhotonNetwork.LeaveLobby();
@@ -285,5 +318,7 @@ public class UIManager : SingletonMonoBehavier<UIManager>
         LoadingController.Instance.player.SetActive(false);
         PhotonController.instance.gameType = PhotonController.GameType.MultiPlayer;
     }
-
+    
+    
+    
 }
