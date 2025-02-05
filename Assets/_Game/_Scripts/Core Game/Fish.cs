@@ -43,6 +43,10 @@ public class Fish : MonoBehaviour
     public SpriteRenderer lvl_3_tail;
     public SpriteRenderer lvl_3_oan;
     public SpriteRenderer lvl_3_openMouth;
+    
+    [SerializeField] internal GameObject lvl1Particle;
+    [SerializeField] internal GameObject lvl2Particle;
+    [SerializeField] internal GameObject lvl3Particle;
 
     private void Awake()
     {

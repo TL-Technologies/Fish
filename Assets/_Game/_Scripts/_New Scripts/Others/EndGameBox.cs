@@ -118,6 +118,9 @@ public class EndGameBox : BaseBox
         var playerClone = Instantiate(player);
         playerClone.enabled = false;
         playerClone.GetComponent<Fish>().enabled = false;
+        Destroy(playerClone.GetComponent<Fish>().lvl1Particle);
+        Destroy(playerClone.GetComponent<Fish>().lvl2Particle);
+        Destroy(playerClone.GetComponent<Fish>().lvl3Particle);
         playerClone.transform.position = Vector3.zero;
         playerClone.transform.eulerAngles = new Vector3(0, 0, 0);
         playerClone.body.localEulerAngles = new Vector3(0, 0, 0); 

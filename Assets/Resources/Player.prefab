@@ -14076,7 +14076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4542188198530755650
 Transform:
   m_ObjectHideFlags: 0
@@ -52519,7 +52519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5313091939694639076
 Transform:
   m_ObjectHideFlags: 0
@@ -65044,6 +65044,9 @@ MonoBehaviour:
   lvl_3_tail: {fileID: 3880723718805005613}
   lvl_3_oan: {fileID: 8748467996838179471}
   lvl_3_openMouth: {fileID: 2172287321261972839}
+  lvl1Particle: {fileID: 2412505083815838781}
+  lvl2Particle: {fileID: 9090758462134508702}
+  lvl3Particle: {fileID: 6425560307081091877}
 --- !u!114 &8933865688052530883
 MonoBehaviour:
   m_ObjectHideFlags: 0

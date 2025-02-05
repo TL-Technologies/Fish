@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="14e03131-111a-470d-ab7d-0465f4bf08d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fish/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/Core Game/Fish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/Core Game/Fish.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/EndGameBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/_New Scripts/Others/EndGameBox.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,6 +106,7 @@
       <workItem from="1737826505818" duration="3146000" />
       <workItem from="1737871280205" duration="3915000" />
       <workItem from="1738403097663" duration="18718000" />
+      <workItem from="1738716538877" duration="866000" />
     </task>
     <servers />
   </component>
