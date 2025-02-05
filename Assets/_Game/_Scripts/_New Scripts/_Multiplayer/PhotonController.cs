@@ -248,21 +248,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                     Debug.Log("Time Left: " + countdownTime); // Log to console
                     if (roomId.text != null)
                         roomId.text = "Time Left: " + countdownTime; // Update UI
-                    if (PhotonNetwork.LocalPlayer.IsMasterClient)
-                    {
-                        object[] data =
-                        {
-                            PhotonNetwork.LocalPlayer,
-                            countdownTime,
-                        };
-                        RaiseEvt(StaticData.countDown, data, ReceiverGroup.Others);
-                    }
                     yield return new WaitForSeconds(1f); // Wait for 1 second
                     countdownTime--;
                 }
 
                 Debug.Log("Countdown Complete!");
-                PhotonNetwork.LoadLevel(2);
             }
         }
         if (newPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
@@ -396,7 +386,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         object[] data =
         {
             PhotonNetwork.LocalPlayer,
-            allowBots
+            allowBots = true
         };
         RaiseEvt(StaticData.StartGame, data, ReceiverGroup.Others);
         PhotonNetwork.LoadLevel(2);

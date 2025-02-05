@@ -11,6 +11,8 @@ public class AIPlayerTargetManager : MonoBehaviour
     public List<Fish> allFishes = new List<Fish>();
     private int j = 0;
     public Fish mainFish;
+    
+    public Transform target;
 
     private void Start()
     {
@@ -44,34 +46,31 @@ public class AIPlayerTargetManager : MonoBehaviour
             SpawnAiPlayer();
         }
     }
-    
+
     public void SpawnAiPlayer()
     {
-        
-            GameObject randomAiPlayer = aiPlayerPrefabs[Random.Range(0, aiPlayerPrefabs.Length)];
-            int randomVal = Random.Range(0, spawnTargets.Count);
-            GameObject obj = Instantiate(randomAiPlayer, spawnTargets[randomVal].localPosition, Quaternion.identity);
-            obj.name = obj.name + j++;
-            allFishes.Add(obj.GetComponent<Fish>());
-            foreach (Fish fish in allFishes)
+        GameObject randomAiPlayer = aiPlayerPrefabs[Random.Range(0, aiPlayerPrefabs.Length)];
+        int randomVal = Random.Range(0, spawnTargets.Count);
+        GameObject obj = Instantiate(randomAiPlayer, spawnTargets[randomVal].localPosition, Quaternion.identity);
+        obj.name = obj.name + j++;
+        obj.transform.SetParent(target);
+        allFishes.Add(obj.GetComponent<Fish>());
+        foreach (Fish fish in allFishes)
+        {
+            if (fish.ismainPlayer)
             {
-                if (fish.ismainPlayer)
-                {
-                    fish.fishName = FindObjectOfType<PlayerController>().fish.fishName;
-                }
-                else
-                {
-                    fish.fishName = "Player"+ Random.Range(0, 125);
-                } 
+                fish.fishName = FindObjectOfType<PlayerController>().fish.fishName;
             }
-        
-            spawnTargets.RemoveAt(randomVal);
+            else
+            {
+                fish.fishName = "Player" + Random.Range(0, 125);
+            }
+        }
 
-            if(spawnTargets.Count == 0)
-                ResetSpawnTargets();
-        
-       
-       
+        spawnTargets.RemoveAt(randomVal);
+
+        if (spawnTargets.Count == 0)
+            ResetSpawnTargets();
     }
 
     private void ResetSpawnTargets()

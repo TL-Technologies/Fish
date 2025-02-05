@@ -186,15 +186,16 @@ public class GameManager : MonoBehaviour
             isShowd = true;
             var ee = EndGameBox.Setup();
             ee.Show();
+            FindObjectOfType<AIPlayerTargetManager>().target.gameObject.SetActive(false);
             FindObjectOfType<AIPlayerTargetManager>().gameObject.SetActive(false);
-            foreach (var s in FindObjectOfType<AIPlayerTargetManager>(true).allFishes)
+            /*foreach (var s in FindObjectOfType<AIPlayerTargetManager>(true).allFishes)
             {
                 if (s != null)
                 {
                     s.GetComponent<AiPlayerController>()?.gameObject.SetActive(false);
                 }
               
-            }
+            }*/
             
         }
     }
