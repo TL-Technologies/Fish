@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -280,6 +281,15 @@ public class UIManager : MonoBehaviourPunCallbacks
             loadingScreen.SetActive(true);
             PhotonNetwork.ConnectUsingSettings();
         }
+
+        StartCoroutine(Cr());
+    }
+
+
+    IEnumerator Cr()
+    {
+        var ss = PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InLobby;
+        yield return new WaitUntil(()=>ss);
         PhotonNetwork.JoinRandomRoom();
         PhotonController.instance.gameType = PhotonController.GameType.MultiPlayer;
         AudioManager.Instance.Play("Click");

@@ -41,6 +41,8 @@ public class uiData : MonoBehaviour
 
     public GameObject allowBotsObject;
     
+    public TMP_Text warningText;
+    
     
     
     #endregion

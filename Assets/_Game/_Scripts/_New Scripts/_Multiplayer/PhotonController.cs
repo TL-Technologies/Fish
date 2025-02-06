@@ -300,6 +300,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         else
         {
             Debug.Log("No rooms available.");
+            StartCoroutine(show());
         }
     }
     
@@ -423,6 +424,16 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         
     }
 
+    IEnumerator show()
+    {
+        if (UIManager.Instance.isSingle)
+        {
+            uiData.Instance.warningText.text = "No Rooms Avilable. Please click on PLAY again to join";
+            uiData.Instance.warningText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(4);
+            uiData.Instance.warningText.gameObject.SetActive(false);
+        }
+    }
 
     #endregion
 }
