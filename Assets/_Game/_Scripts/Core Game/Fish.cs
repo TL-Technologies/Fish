@@ -199,8 +199,10 @@ public class Fish : MonoBehaviour
         if(GetComponent<PlayerController>())
             AudioManager.Instance.Play("Boost");
 
-        if (boostParticle)
-            boostParticle.SetActive(true);
+        if (boostParticle != null)
+        {
+            boostParticle?.SetActive(true);
+        }
 
         speed += boostForce;
         Bite();
@@ -210,7 +212,10 @@ public class Fish : MonoBehaviour
 
     private void StopBoost()
     {
-        boostParticle.SetActive(false);
+        if (boostParticle != null)
+        {
+            boostParticle.SetActive(false);
+        }
         speed -= boostForce;
     }
 
