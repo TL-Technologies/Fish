@@ -330,7 +330,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     private void CreateRoom()
     {
        var roomName = Random.Range(1000, 99999).ToString();
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 10 });
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 10 , IsVisible = false});
     }
     
     private void OnClickJoinRoom()
@@ -430,7 +430,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     
     private IEnumerator StartCountdown()
     {
-        while (countdownTime >= 0 && UIManager.Instance.isSingle)
+        while (countdownTime >= 0 && UIManager.Instance.isSingle && SceneManager.GetActiveScene().buildIndex == 0)
         {
             if (PhotonNetwork.IsMasterClient) // Ensure only master client controls the countdown
             {
@@ -445,7 +445,6 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             yield return new WaitForSeconds(1f);
             countdownTime--;
         }
-
         Debug.Log("Countdown Complete!");
         if (UIManager.Instance.isSingle && SceneManager.GetActiveScene().buildIndex == 0)
         {

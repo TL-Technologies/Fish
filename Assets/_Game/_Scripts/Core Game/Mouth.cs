@@ -13,7 +13,7 @@ public class Mouth : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (fish.GetScore() > collision.GetComponent<Fish>().GetScore())
+            if (fish.GetScore() >= collision.GetComponent<Fish>().GetScore())
             {
                 Destroy(collision.GetComponentInChildren<Mouth>());
 
