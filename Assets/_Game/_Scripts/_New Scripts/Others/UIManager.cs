@@ -149,10 +149,15 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnClickDone(string input = null)
     {
+        Debug.Log(input);
         if (!string.IsNullOrEmpty(usernameInput.text) && usernameInput.text.Length >= 1 &&
             usernameInput.text.Length <= 25)
         {
             var name = usernameInput.text;
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.LocalPlayer.NickName = name;
+            }
             PlayerPrefsData.SaveName(name);
         }
     }

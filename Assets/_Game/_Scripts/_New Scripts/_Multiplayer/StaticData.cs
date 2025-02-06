@@ -5,6 +5,7 @@ public class StaticData : MonoBehaviour
 {
     public const byte StartGame = 1;
     public const byte countDown = 2;
+    public const byte StartGameRandom = 3;
     
     public static IEnumerator GetDelay(float delay)
     {

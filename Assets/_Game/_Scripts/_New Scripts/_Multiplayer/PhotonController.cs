@@ -126,6 +126,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 PhotonNetwork.LoadLevel(2);
             }
         }
+        if (photonEvent.Code == StaticData.StartGameRandom)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var data1 = (Player)receivedData[0];
+            var data2 = (bool)receivedData[1];
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                allowBots = data2;
+                PhotonNetwork.LoadLevel(2);
+            }
+        }
         if (photonEvent.Code == StaticData.countDown)
         {
             object[] data = (object[])photonEvent.CustomData;
@@ -398,6 +409,25 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.LoadLevel(2);
     }
     
+    public void OnClickStartGameRandom()
+    {
+        if (coroutine != null )
+        {
+            StopCoroutine(coroutine);
+        }
+        object[] data =
+        {
+            PhotonNetwork.LocalPlayer,
+            allowBots = true
+        };
+        RaiseEvt(StaticData.StartGame, data, ReceiverGroup.Others);
+        if (UIManager.Instance.isSingle)
+        {
+            allowBots = true;
+        }
+        PhotonNetwork.LoadLevel(2);
+    }
+    
     private IEnumerator StartCountdown()
     {
         while (countdownTime >= 0 && UIManager.Instance.isSingle)
@@ -417,9 +447,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         }
 
         Debug.Log("Countdown Complete!");
-        if (UIManager.Instance.isSingle)
+        if (UIManager.Instance.isSingle && SceneManager.GetActiveScene().buildIndex == 0)
         {
-            OnClickStartGame();  
+            OnClickStartGameRandom();  
         }
         
     }
