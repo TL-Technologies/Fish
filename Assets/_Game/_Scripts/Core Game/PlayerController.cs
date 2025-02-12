@@ -32,6 +32,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (rb == null && GetComponent<Fish>().ismainPlayer)
+        {
+            rb = GetComponent<Rigidbody2D>();
+            Debug.Log("rb was null 2" + rb.name);
+        }
+        
         if (joystick != null)
         {
             direction = joystick.Direction;
