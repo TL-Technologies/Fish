@@ -1,5 +1,6 @@
 using MoreMountains.NiceVibrations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingBox : BaseBox
 {
@@ -28,7 +29,15 @@ public class SettingBox : BaseBox
     {
         if (instance == null)
         {
-            instance = Instantiate(UIManager.Instance.settingPrefab);
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                instance = Instantiate(UIManager.Instance.settingPrefab);
+
+            }
+            else
+            {
+                instance = Instantiate(FindObjectOfType<GameManager>().settingBox);
+            }
         }
         instance.SetActive(true);
 

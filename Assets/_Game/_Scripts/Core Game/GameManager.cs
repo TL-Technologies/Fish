@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     internal bool isTimerRunning = true;
     [SerializeField]internal bool win;
 
+    public Button SettingBtn;
+    public GameObject settingBox;
+
     // Sound Btn
     bool soundToggle = true;
     public Image audioBtnImage;
@@ -96,9 +99,13 @@ public class GameManager : MonoBehaviour
     {
         pauseBtn.AddCustomListner(ShowPause);
         useSword.AddCustomListner(OnClickUseSword);
+        SettingBtn.AddCustomListner(ShowSetting);
     }
 
-
+    private void ShowSetting()
+    {
+        SettingBox.Setup();
+    }
     void ShowPause()
     {
         Time.timeScale = 0;
