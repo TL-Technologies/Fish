@@ -74,8 +74,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Awake()
     {
-        instance = this;
-        DontDestroyOnLoad(this);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     private void Start()
@@ -446,8 +449,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             countdownTime--;
         }
         Debug.Log("Countdown Complete!");
-        if (UIManager.Instance.isSingle && SceneManager.GetActiveScene().buildIndex == 0)
+        if (UIManager.Instance.isSingle && SceneManager.GetActiveScene().buildIndex == 0 && !UIManager.Instance.isLoaded)
         {
+            UIManager.Instance.isLoaded = true;
             OnClickStartGameRandom();  
         }
         

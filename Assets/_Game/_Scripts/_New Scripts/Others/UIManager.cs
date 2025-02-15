@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     [SerializeField] internal GameObject optionpage;
     [SerializeField] internal GameObject randomRoomPage;
     public bool isSingle;
-
+    [SerializeField]internal bool isLoaded= false;
 
     private void Awake()
     {
@@ -330,7 +330,7 @@ public class UIManager : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
         
-        PhotonController.instance.multiplayerPanel.SetActive(true);
+        uiData.Instance.multiplayerPanel.SetActive(true);
         LoadingController.Instance.mainMenu.SetActive(false);
         LoadingController.Instance.player.SetActive(false);
         PhotonController.instance.gameType = PhotonController.GameType.MultiPlayer;
