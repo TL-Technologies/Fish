@@ -79,6 +79,10 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             instance = this;
             DontDestroyOnLoad(this);
         }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void Start()
@@ -192,6 +196,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         roomCode = PhotonNetwork.CurrentRoom.Name;
         uiData.Instance.multiplayerPanel.SetActive(true);
         uiData.Instance.optionPage.SetActive(false);
+        UIManager.Instance.loadingScreen.SetActive(false);
+        LoadingController.Instance.player.SetActive(false);
+       
         uiData.Instance.joinRoomPanel.SetActive(false);
         
         if (PhotonNetwork.IsMasterClient && !UIManager.Instance.isSingle)
@@ -461,10 +468,19 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if (UIManager.Instance.isSingle)
         {
+            if (StaticData.GetRandomStatus())
+            {
+                LoadingController.Instance.mainMenu.SetActive(false);
+                uiData.Instance.roomPanel.SetActive(true);
+                LoadingController.Instance.player.SetActive(false);
+                UIManager.Instance.loadingScreen.SetActive(true);
+                UIManager.Instance.ss();
+            }
             uiData.Instance.warningText.text = "No Rooms Avilable. Please click on PLAY again to join";
             uiData.Instance.warningText.gameObject.SetActive(true);
             yield return new WaitForSeconds(4);
             uiData.Instance.warningText.gameObject.SetActive(false);
+            
         }
     }
 

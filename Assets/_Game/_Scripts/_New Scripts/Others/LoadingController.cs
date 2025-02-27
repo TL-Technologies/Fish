@@ -33,8 +33,11 @@ public class LoadingController : SingletonMonoBehavier<LoadingController>
          .OnComplete(() =>
          {
             loadingPanel.SetActive(false);
-            player.SetActive(true);
-            mainMenu.SetActive(true);
+            if (!StaticData.GetRandomStatus())
+            {
+               player.SetActive(true);
+               mainMenu.SetActive(true);
+            }
             loader.fillAmount = 1;
          }).SetUpdate(true);
    }

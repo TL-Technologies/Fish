@@ -111,6 +111,44 @@ public class UIManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        SceneManager.sceneLoaded += OnSceneLoad;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        SceneManager.sceneLoaded -= OnSceneLoad;
+    }
+
+    private void OnSceneLoad(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.buildIndex == 0 && StaticData.GetRandomStatus())
+        {
+            ss();
+        }
+    }
+
+    public void ss()
+    {
+        PhotonController.instance.countdownTime = 15;
+        Debug.Log("GetRandomStatus");
+        //StartCoroutine(ss());
+        StaticData.SetRandomStatus(true);
+        isSingle = true;
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("Connect to server");
+            loadingScreen.SetActive(true);
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
+        StartCoroutine(Cr());
+    }
+    
+
     #region Unity Methods
     
     private void Start()
@@ -268,6 +306,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnClickPlayButton()
     {
+        StaticData.SetRandomStatus(true);
         PhotonController.instance.countdownTime = 15;
         isSingle = true;
         if (PhotonNetwork.InLobby)
@@ -293,6 +332,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     IEnumerator Cr()
     {
+        Debug.Log("GetRandomStatus");
         var ss = PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InLobby;
         yield return new WaitUntil(()=>ss);
         PhotonNetwork.JoinRandomRoom();
@@ -311,6 +351,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnClickMultiplayer()
     {
+        StaticData.SetRandomStatus(false);
         uiData.Instance.Open();
         isSingle = false;
         if (PhotonNetwork.InLobby)
