@@ -194,15 +194,20 @@ public class Fish : MonoBehaviour
         return score;
     }
 
+    internal float originalSpeed;
+
     public void Boost()
     {
-        if(GetComponent<PlayerController>())
+        if (GetComponent<PlayerController>())
             AudioManager.Instance.Play("Boost");
 
         if (boostParticle != null)
         {
-            boostParticle?.SetActive(true);
+            boostParticle.SetActive(true);
         }
+
+        if (originalSpeed == 0) // Store speed only if not already stored
+            originalSpeed = speed;
 
         speed += boostForce;
         Bite();
@@ -216,7 +221,9 @@ public class Fish : MonoBehaviour
         {
             boostParticle.SetActive(false);
         }
-        speed -= boostForce;
+    
+        // Reset speed correctly
+        speed = originalSpeed;
     }
 
     public void ShowScore()

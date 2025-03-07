@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,14 @@ public class SpeedBoostButton : MonoBehaviour
             playerFish.Boost();
             StartFilling();
             Invoke("ReEnableBtn", fillDuration);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Bite();
         }
     }
 

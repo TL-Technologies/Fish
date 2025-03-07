@@ -60,22 +60,25 @@ public class GameManager : MonoBehaviour
          {
              timerText.text = countdownValue.ToString();
              yield return new WaitForSeconds(1);
-             
              countdownValue--;
          }
 
-        timerText.gameObject.SetActive(false);
-        playerController.fish.mouth.SetActive(true);
-        playerController.fish.sword.SetActive(false);
-        playerController.fish.speed = 8;
+         // Reset speed to original after countdown
+         playerController.fish.speed = playerController.fish.originalSpeed;
+
+         timerText.gameObject.SetActive(false);
+         playerController.fish.mouth.SetActive(true);
+         playerController.fish.sword.SetActive(false);
      }
-
-
 
      void OnClickUseSword()
      {
          playerController.fish.mouth.SetActive(false);
          playerController.fish.sword.SetActive(true);
+
+         if (playerController.fish.originalSpeed == 0) // Store only once
+             playerController.fish.originalSpeed = playerController.fish.speed;
+
          playerController.fish.speed *= 1.5f;
          useSword.interactable = false;
          timerText.gameObject.SetActive(true);
