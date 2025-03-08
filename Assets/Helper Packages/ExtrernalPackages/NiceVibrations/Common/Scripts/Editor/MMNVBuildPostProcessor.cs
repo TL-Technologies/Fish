@@ -102,7 +102,10 @@ namespace MoreMountains.NiceVibrations
                 _headerFileUnityPath = _pluginPath;
 
                 _pluginPath = ReplaceFirst(_pluginPath, "Assets", "Libraries");
-                _pluginPath = _pluginPath.Replace(_headerFileName, "");
+                if (!string.IsNullOrEmpty(_headerFileName))
+                {
+                    _pluginPath = _pluginPath.Replace(_headerFileName, "");
+                }
                 _headerFileXCodePath = _pluginPath + _headerFileName;
 
                 _moduleFileUnityPath = AssetDatabase.GetAssetPath(_mmnvPath.ModuleMap);
