@@ -8,50 +8,83 @@ using UnityEngine.UI;
 
 public class IAPManager : MonoBehaviour, IStoreListener
 {
-    
     private static IStoreController storeController;
     private static IExtensionProvider storeExtensionProvider;
     public string[] productIds;
     public Button[] purchaseBtns;
     public Button[] weaponBtns;
-     private void Start()
-     {
-         StartCoroutine(cc());
+    public Button restoreBtn;
+
+    private void Start()
+    {
+// Show restore button only on iOS
+#if UNITY_IOS
+        restoreBtn.gameObject.SetActive(true);
+#else
+    restoreBtn.gameObject.SetActive(false);
+#endif
+        restoreBtn.gameObject.SetActive(Application.platform == RuntimePlatform.IPhonePlayer);
+
+       
+        StartCoroutine(InitializeAfterDelay());
         AssignButtonListeners();
         OnPurchaseRefreshUi();
     }
 
-     private void AssignButtonListeners()
-     {
-         for (int i = 0; i < purchaseBtns.Length; i++)
-         {
-             int index = i;
-             purchaseBtns[index].onClick.AddListener(() =>
-             {
-                 if (!PlayerPrefsData.IsProductPurchased(productIds[index]))
-                 {
-                     BuyProduct(productIds[index]);
-                 }
+    private void AssignButtonListeners()
+    {
+        for (int i = 0; i < purchaseBtns.Length; i++)
+        {
+            int index = i;
+            purchaseBtns[index].onClick.AddListener(() =>
+            {
+                if (!PlayerPrefsData.IsProductPurchased(productIds[index]))
+                {
+                    BuyProduct(productIds[index]);
+                }
+            });
+        }
 
-             });
-         }
+        for (int i = 0; i < weaponBtns.Length; i++)
+        {
+            int index = i;
+            weaponBtns[index].onClick.AddListener(() =>
+            {
+                int productIdIndex = index + 7;
+                if (!PlayerPrefsData.IsWeaponPurchased(productIds[productIdIndex]))
+                {
+                    BuyProduct(productIds[productIdIndex]);
+                }
+            });
+        }
+        
+        restoreBtn.AddCustomListner(RestorePurchases);
+    }
 
-         for (int i = 0; i < weaponBtns.Length; i++)
-         {
-             int index = i;
-             weaponBtns[index].onClick.AddListener(() =>
-             {
-                 // Adjust the productIds index if it starts from 6
-                 int productIdIndex = index + 7; // Assuming productIds starts from index 6
-                 if (!PlayerPrefsData.IsWeaponPurchased(productIds[productIdIndex]))
-                 {
-                     BuyProduct(productIds[productIdIndex]);
-                 }
-             });
-         }
-     }  
+    public void RestorePurchases()
+    {
+        if (!IsInitialized())
+        {
+            Debug.LogError("IAP not initialized!");
+            return;
+        }
 
-     IEnumerator cc()
+        if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            Debug.Log("Restoring purchases...");
+            var apple = storeExtensionProvider.GetExtension<IAppleExtensions>();
+            apple.RestoreTransactions((result) =>
+            {
+                Debug.Log("Restore completed. Success: " + result);
+            });
+        }
+        else
+        {
+            Debug.Log("Restore not supported on this platform.");
+        }
+    }
+
+    private IEnumerator InitializeAfterDelay()
     {
         yield return new WaitForSeconds(3f);
         if (storeController == null)
@@ -59,6 +92,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             InitializePurchasing();
         }
     }
+
     public void InitializePurchasing()
     {
         if (IsInitialized())
@@ -70,11 +104,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         foreach (var productId in productIds)
         {
-            builder.AddProduct(productId, ProductType.Consumable);
+            builder.AddProduct(productId, ProductType.NonConsumable);
         }
 
         UnityPurchasing.Initialize(this, builder);
-        
     }
 
     private bool IsInitialized()
@@ -96,10 +129,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
             }
         }
     }
-    
+
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        Debug.Log($"Initialization Success : ");
+        Debug.Log("Initialization Success");
         storeController = controller;
         storeExtensionProvider = extensions;
     }
@@ -128,29 +161,48 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private void OnPurchaseSuccess(string productId)
     {
         Debug.Log("Purchase Success: " + productId);
-        if (productId == "com.brawl.fish.laser" ||productId == "com.brawl.fish.legendkatana" ||productId == "com.brawl.fish.lightining" ||productId == "com.brawl.fish.poisedon" ||productId == "com.brawl.fish.sword" ||productId == "com.brawl.fish.umbrella")
+
+        if (IsWeapon(productId))
         {
             PlayerPrefsData.SaveWeaponId(productId);
+            Debug.Log("Saving Weapon Id");
         }
         else
         {
             PlayerPrefsData.SaveProductId(productId);
+            Debug.Log("Saving Product Id");
         }
+
         OnPurchaseRefreshUi();
     }
 
-    void OnPurchaseRefreshUi()
+    private bool IsWeapon(string productId)
     {
+        return productId == "com.brawl.laser" ||
+               productId == "com.brawl.legendkatana" ||
+               productId == "com.brawl.lightining" ||
+               productId == "com.brawl.poisedon" ||
+               productId == "com.brawl.sword" ||
+               productId == "com.brawl.umbrella";
+    }
+
+    private void OnPurchaseRefreshUi()
+    {
+        Debug.Log("Called");
         foreach (var s in purchaseBtns)
         {
             foreach (var p in PlayerPrefsData.GetAllPurchasedProductIds())
             {
-                if (s.GetComponent<FishDetailManager>().myID == p )
+                Debug.Log("Called--> " + p);
+                if (s.GetComponent<FishDetailManager>().myID == p)
                 {
-                 s.GetComponent<FishDetailManager>().selectedButton.SetActive(false);
-                 s.GetComponent<FishDetailManager>().selectedButton.GetComponent<TMP_Text>().text = "Selected";
-                 s.GetComponent<FishDetailManager>().selectButton.SetActive(true);
-                }  
+                    Debug.Log("Called--> " + p);
+                    var fishManager = s.GetComponent<FishDetailManager>();
+                    fishManager.selectedButton.SetActive(false);
+                    fishManager.selectedButton.GetComponent<TMP_Text>().text = "Selected";
+                    fishManager.selectButton.SetActive(true);
+                    Debug.Log("hereeee");
+                }
             }
         }
 
@@ -158,12 +210,15 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             foreach (var p in PlayerPrefsData.GetAllPurchasedWeaponIds())
             {
-                if (s.GetComponent<WeaponDetailManager>().myID == p )
+                Debug.Log("Called--> " + p);
+                if (s.GetComponent<WeaponDetailManager>().myID == p)
                 {
-                    s.GetComponent<WeaponDetailManager>().selectedButton.SetActive(false);
-                    s.GetComponent<WeaponDetailManager>().selectedButton.GetComponent<TMP_Text>().text = "Selected";
-                    s.GetComponent<WeaponDetailManager>().selectButton.SetActive(true);
-                }  
+                    var weaponManager = s.GetComponent<WeaponDetailManager>();
+                    weaponManager.selectedButton.SetActive(false);
+                    weaponManager.selectedButton.GetComponent<TMP_Text>().text = "Selected";
+                    weaponManager.selectButton.SetActive(true);
+                    Debug.Log("hereeee");
+                }
             }
         }
     }
