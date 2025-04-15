@@ -19,6 +19,10 @@ public class FishDetailManager : MonoBehaviour
     [SerializeField] internal GameObject selectedButton;
     [SerializeField] internal GameObject selectBorder;
     
+    [SerializeField] private Image re_image;
+    [SerializeField] private Image re_tail;
+    [SerializeField] private Image icon;
+    [SerializeField] private Image tail;
     
 
     private void Start()
@@ -29,6 +33,10 @@ public class FishDetailManager : MonoBehaviour
     public void SetName()
     {
        text.text = fishName; 
+       re_image.gameObject.SetActive(true);
+       re_tail.gameObject.SetActive(true);
+       re_image.sprite = icon.sprite;
+       re_tail.sprite = tail.sprite;
     }
 
     public void SetIDAndFish()
